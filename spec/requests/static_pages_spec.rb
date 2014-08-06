@@ -52,7 +52,7 @@ describe "Static pages" do
     click_link "Home"
     click_link "Sign up now!"
     expect(page).to have_title('mySmartGrid')
-    click_link "sample app"
+    click_link "mySmartGrid"
     expect(page).to have_title('mySmartGrid')
   end
 end
