@@ -1,3 +1,3 @@
 == README
 
-This is a sample Rails application.
+This is the prototype of the mySmartGrid web application.
