@@ -11,10 +11,22 @@ $(function () {
         label: "MW"
     });
 
+    var gauge2 = new JustGage({
+        id: "gauge2",
+        value: "0",
+        min: 0,
+        max: 1000,
+        levelColors: [ "#2A4026", "#B6D96C", "#2A4026" ],
+        levelColorsGradient: true,
+        title: "Gauge 2",
+        label: "MW"
+    });
+
     if (window["WebSocket"]) {
 
         function updateCharts(measurement) {
             gauge1.refresh(Number(measurement.value).toFixed(1));
+            gauge2.refresh(Number(measurement.value).toFixed(1));
         }
 
         var dispatcher = new WebSocketRails('localhost:3000/websocket');

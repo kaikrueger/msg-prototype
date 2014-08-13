@@ -64,19 +64,61 @@ p {
 
 /* header */
 
-#logo {
-  float: left;
-  margin-right: 10px;
-  font-size: 1.7em;
-  color: white;
-  letter-spacing: -1px;
-  padding-top: 9px;
-  font-weight: bold;
+.nav {
+  list-style: none outside none;
+  font-size: 1.2em;
+}
+
+.hero-unit {
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: inherit;
+  background-color: #EEE;
+  border-radius: 6px;
+}
+
+.hero-unit h1 {
+  margin-bottom: 5px;
+  font-size: 18px;
   line-height: 1;
-  &:hover {
-    color: white;
-    text-decoration: none;
-  }
+  color: inherit;
+  letter-spacing: -1px;
+}
+
+.logo-div {
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: white;
+  border-radius: 6px;
+}
+
+/* Charts */
+
+.chart-container section {
+  padding: 10px;
+}
+
+.chart-description-div {
+  width: 75%;
+  float: right;
+  margin-top: 10px;
+}
+
+.chart-description-div h1 {
+  margin-bottom: 5px;
+  font-size: 16px;
+  line-height: 1;
+  color: inherit;
+  letter-spacing: -1px;
+  text-align: left;
+}
+
+.gauge-div {
+  width: 20%;
+  color: inherit;
+  background-color: transparent;
+  float: left;
 }
 
 /* footer */
