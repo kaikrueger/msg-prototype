@@ -1,32 +1,59 @@
 $(function () {
 
-    var gauge1 = new JustGage({
-        id: "gauge1",
-        value: "0",
-        min: 0,
-        max: 1000,
-        levelColors: [ "#2A4026", "#B6D96C", "#2A4026" ],
-        levelColorsGradient: true,
-        title: "Gauge 1",
-        label: "MW"
+    function date2string(date) {
+        var hr = date.getHours();
+        var min = date.getMinutes();
+        if (min < 10) {
+            min = "0" + min;
+        }
+        var sec = date.getSeconds();
+        if (sec < 10) {
+            sec = "0" + sec;
+        }
+        return hr + ":" + min + ":" + sec;
+    }
+
+    var now = Math.round(new Date()/1000)
+
+    var lineChart = $('#lineChart').epoch({
+        type: 'time.line',
+        label: "Frequency",
+        data: [
+            {
+                label: 'Frequency',
+                values: [ {time: now, y: 0.0} ]
+            }
+        ],
+        width: 350,
+        height: 150,
+        tickFormats: {
+            bottom: function(d) {
+                return date2string(new Date(d*1000));
+            }
+        },
+        axes: ['left', 'bottom', 'right'],
+        windowSize: 100,
+        historySize: 20,
+        queueSize: 60
     });
 
-    var gauge2 = new JustGage({
-        id: "gauge2",
+    var gauge = new JustGage({
+        id: "gauge",
         value: "0",
         min: 0,
         max: 1000,
         levelColors: [ "#2A4026", "#B6D96C", "#2A4026" ],
         levelColorsGradient: true,
-        title: "Gauge 2",
+        title: "Gauge",
         label: "MW"
     });
 
     if (window["WebSocket"]) {
 
         function updateCharts(measurement) {
-            gauge1.refresh(Number(measurement.value).toFixed(1));
-            gauge2.refresh(Number(measurement.value).toFixed(1));
+
+            lineChart.push([{time: now, y: measurement.value}])
+            gauge.refresh(Number(measurement.value).toFixed(1));
         }
 
         var dispatcher = new WebSocketRails('localhost:3000/websocket');

@@ -100,7 +100,7 @@ p {
 }
 
 .chart-description-div {
-  width: 75%;
+  width: 60%;
   float: right;
   margin-top: 10px;
 }
@@ -114,11 +114,15 @@ p {
   text-align: left;
 }
 
-.gauge-div {
-  width: 20%;
-  color: inherit;
-  background-color: transparent;
+.chart-div {
+  width: 30%;
   float: left;
+}
+
+.illustration-div {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 10px;
 }
 
 /* footer */
