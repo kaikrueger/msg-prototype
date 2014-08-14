@@ -13,7 +13,7 @@ $(function () {
         return hr + ":" + min + ":" + sec;
     }
 
-    var now = Math.round(new Date()/1000)
+    var now = Math.round(new Date()/1000);
 
     var lineChart = $('#lineChart').epoch({
         type: 'time.line',
@@ -24,8 +24,9 @@ $(function () {
                 values: [ {time: now, y: 0.0} ]
             }
         ],
-        width: 350,
+        width: 300,
         height: 150,
+        ticks: { time: 30 },
         tickFormats: {
             bottom: function(d) {
                 return date2string(new Date(d*1000));
@@ -52,6 +53,7 @@ $(function () {
 
         function updateCharts(measurement) {
 
+            var now = Math.round(new Date()/1000);
             lineChart.push([{time: now, y: measurement.value}])
             gauge.refresh(Number(measurement.value).toFixed(1));
         }
