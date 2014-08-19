@@ -1,4 +1,4 @@
-Myapp::Application.configure do
+SampleApp::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on
@@ -26,4 +26,6 @@ Myapp::Application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
+
+  config.middleware.delete Rack::Lock
 end
