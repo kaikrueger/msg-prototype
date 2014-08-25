@@ -45,8 +45,8 @@ $(function () {
         max: 1000,
         levelColors: [ "#2A4026", "#B6D96C", "#2A4026" ],
         levelColorsGradient: true,
-        title: "Gauge",
-        label: "MW"
+        title: "Wasserkocher",
+        label: "W"
     });
 
     if (window["WebSocket"]) {
