@@ -13,7 +13,7 @@ $(function () {
         return hr + ":" + min + ":" + sec;
     }
 
-    var now = Math.round(new Date()/1000);
+    var now = Math.round(new Date() / 1000);
 
     var lineChart = $('#lineChart').epoch({
         type: 'time.line',
@@ -21,15 +21,17 @@ $(function () {
         data: [
             {
                 label: 'Frequency',
-                values: [ {time: now, y: 0.0} ]
+                values: [
+                    {time: now, y: 0.0}
+                ]
             }
         ],
         width: 300,
         height: 150,
         ticks: { time: 30 },
         tickFormats: {
-            bottom: function(d) {
-                return date2string(new Date(d*1000));
+            bottom: function (d) {
+                return date2string(new Date(d * 1000));
             }
         },
         axes: ['left', 'bottom', 'right'],
@@ -53,12 +55,18 @@ $(function () {
 
         function updateCharts(measurement) {
 
-            var now = Math.round(new Date()/1000);
-            lineChart.push([{time: now, y: measurement.value}])
+            var now = Math.round(new Date() / 1000);
+            lineChart.push([
+                {time: now, y: measurement.value}
+            ]);
             gauge.refresh(Number(measurement.value).toFixed(1));
         }
 
-        var dispatcher = new WebSocketRails('localhost:3000/websocket');
+        var dispatcher = new WebSocketRails(
+                window.location.host + ':' +
+                window.location.port +
+                '/websocket');
+
         var channel = dispatcher.subscribe('measurements');
 
         channel.bind('create', updateCharts);
