@@ -62,10 +62,7 @@ $(function () {
             gauge.refresh(Number(measurement.value).toFixed(1));
         }
 
-        var dispatcher = new WebSocketRails(
-                window.location.host + ':' +
-                window.location.port +
-                '/websocket');
+        var dispatcher = new WebSocketRails(window.location.host + '/websocket');
 
         var channel = dispatcher.subscribe('measurements');
 

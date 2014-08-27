@@ -17,4 +17,10 @@ class MeasurementsController < ApplicationController
     WebsocketRails['measurements'].trigger('destroy', measurement)
     render json: {message: 'Measurement destroyed'}
   end
+
+  private
+
+  def measurement_params
+    params.require(:measurement).permit(:timestamp, :value)
+  end
 end
