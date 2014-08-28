@@ -13,12 +13,54 @@ $(function () {
         return hr + ":" + min + ":" + sec;
     }
 
-    var browserIE = navigator.appName == 'Microsoft Internet Explorer';
+    function isBrowserIE() {
+
+      if (navigator.appName == 'Microsoft Internet Explorer') {
+        return true;
+
+      } else if (navigator.appName == 'Netscape') {
+
+        var re  = new RegExp("Trident/.*");
+        if (re.exec(navigator.userAgent) != null) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    var browserIE = isBrowserIE();
+
     var now = Math.round(new Date() / 1000);
-    var gauge;
     var lineChart;
 
-    gauge = new JustGage({
+    if (!browserIE) {
+      lineChart = $('#lineChart').epoch({
+        type: 'time.line',
+        label: "Frequency",
+        data: [
+            {
+                label: 'Frequency',
+                values: [
+                    {time: now, y: 0.0}
+                ]
+            }
+        ],
+        width: 300,
+        height: 150,
+        ticks: { time: 30 },
+        tickFormats: {
+            bottom: function (d) {
+                return date2string(new Date(d * 1000));
+            }
+        },
+        axes: ['left', 'bottom', 'right'],
+        windowSize: 100,
+        historySize: 20,
+        queueSize: 60
+      });
+    }
+
+    var gauge = new JustGage({
         id: "gauge",
         value: "0",
         min: 0,
@@ -29,43 +71,15 @@ $(function () {
         label: "W"
     });
 
-    if (!browserIE) {
-
-        lineChart = $('#lineChart').epoch({
-            type: 'time.line',
-            label: "Frequency",
-            data: [
-                {
-                    label: 'Frequency',
-                    values: [
-                        {time: now, y: 0.0}
-                    ]
-                }
-            ],
-            width: 300,
-            height: 150,
-            ticks: { time: 30 },
-            tickFormats: {
-                bottom: function (d) {
-                    return date2string(new Date(d * 1000));
-                }
-            },
-            axes: ['left', 'bottom', 'right'],
-            windowSize: 100,
-            historySize: 20,
-            queueSize: 60
-        });
-    }
-
     if (window["WebSocket"]) {
 
         function updateCharts(measurement) {
 
             if (!browserIE) {
-                var now = Math.round(new Date() / 1000);
-                lineChart.push([
-                    {time: now, y: measurement.value}
-                ]);
+              var now = Math.round(new Date() / 1000);
+              lineChart.push([
+                  {time: now, y: measurement.value}
+              ]);
             }
             gauge.refresh(Number(measurement.value).toFixed(1));
         }
