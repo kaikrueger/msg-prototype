@@ -13,34 +13,12 @@ $(function () {
         return hr + ":" + min + ":" + sec;
     }
 
+    var browserIE = navigator.appName == 'Microsoft Internet Explorer';
     var now = Math.round(new Date() / 1000);
+    var gauge;
+    var lineChart;
 
-    var lineChart = $('#lineChart').epoch({
-        type: 'time.line',
-        label: "Frequency",
-        data: [
-            {
-                label: 'Frequency',
-                values: [
-                    {time: now, y: 0.0}
-                ]
-            }
-        ],
-        width: 300,
-        height: 150,
-        ticks: { time: 30 },
-        tickFormats: {
-            bottom: function (d) {
-                return date2string(new Date(d * 1000));
-            }
-        },
-        axes: ['left', 'bottom', 'right'],
-        windowSize: 100,
-        historySize: 20,
-        queueSize: 60
-    });
-
-    var gauge = new JustGage({
+    gauge = new JustGage({
         id: "gauge",
         value: "0",
         min: 0,
@@ -51,14 +29,44 @@ $(function () {
         label: "W"
     });
 
+    if (!browserIE) {
+
+        lineChart = $('#lineChart').epoch({
+            type: 'time.line',
+            label: "Frequency",
+            data: [
+                {
+                    label: 'Frequency',
+                    values: [
+                        {time: now, y: 0.0}
+                    ]
+                }
+            ],
+            width: 300,
+            height: 150,
+            ticks: { time: 30 },
+            tickFormats: {
+                bottom: function (d) {
+                    return date2string(new Date(d * 1000));
+                }
+            },
+            axes: ['left', 'bottom', 'right'],
+            windowSize: 100,
+            historySize: 20,
+            queueSize: 60
+        });
+    }
+
     if (window["WebSocket"]) {
 
         function updateCharts(measurement) {
 
-            var now = Math.round(new Date() / 1000);
-            lineChart.push([
-                {time: now, y: measurement.value}
-            ]);
+            if (!browserIE) {
+                var now = Math.round(new Date() / 1000);
+                lineChart.push([
+                    {time: now, y: measurement.value}
+                ]);
+            }
             gauge.refresh(Number(measurement.value).toFixed(1));
         }
 
