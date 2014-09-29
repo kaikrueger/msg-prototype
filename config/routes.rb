@@ -2,6 +2,8 @@ SampleApp::Application.routes.draw do
 
   resources :users
 
+  resources :sensors
+
   resources :measurements
 
   resources :sessions, only: [:new, :create, :destroy]

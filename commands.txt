@@ -1,0 +1,8 @@
+
+rails generate model Sensor name:string --force
+
+bundle exec rake db:migrate
+
+bundle exec rspec spec/
+
+rails generate migration add_fieldname_to_tablename fieldname:string

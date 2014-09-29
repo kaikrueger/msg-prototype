@@ -49,7 +49,5 @@ describe "Static pages" do
     expect(page).to have_title(full_title('Help'))
     click_link "Contact"
     expect(page).to have_title(full_title('Contact'))
-    click_link "mySmartGrid"
-    expect(page).to have_title('mySmartGrid')
   end
 end

@@ -15,4 +15,8 @@ WebsocketRails::EventMap.describe do
   subscribe :client_connected, :to => ChartsController, :with_method => :connect_client
 
   subscribe :client_disconnected, :to => ChartsController, :with_method => :disconnect_client
+
+  namespace :measurements do
+    subscribe :post, :to => ChartsController, :with_method => :post_measurement
+  end
 end
