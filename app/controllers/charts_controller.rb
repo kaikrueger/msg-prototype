@@ -22,6 +22,6 @@ class ChartsController < WebsocketRails::BaseController
     sensor = Sensor.find_by(uuid: message[:sensor_uuid])
     sensor.add_measurement! message[:timestamp], message[:value]
 
-    send_message :post_success, "post_success", :namespace => :measurements
+    send_message :post_success, 'post_success', :namespace => :measurements
   end
 end
