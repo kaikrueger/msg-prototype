@@ -6,3 +6,7 @@ bundle exec rake db:migrate
 bundle exec rspec spec/
 
 rails generate migration add_fieldname_to_tablename fieldname:string
+
+rails generate migration add_user_id_to_sensors user_id:integer
+
+

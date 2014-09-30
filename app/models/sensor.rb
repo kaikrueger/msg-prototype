@@ -1,5 +1,8 @@
 class Sensor < ActiveRecord::Base
 
+  belongs_to :user
+  validates :user_id, presence: true
+
   validates :uuid, presence: true, length: {maximum: 32}
   validates :name, presence: true, length: {maximum: 50}
 
@@ -8,7 +11,7 @@ class Sensor < ActiveRecord::Base
   end
 
   def remove_measurement!(timestamp)
-    $redis.srem(self.redis_key(timestamp))
+    $redis.del(self.redis_key(timestamp))
   end
 
   def redis_key(timestamp)
