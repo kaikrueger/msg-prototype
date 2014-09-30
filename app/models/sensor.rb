@@ -7,14 +7,30 @@ class Sensor < ActiveRecord::Base
   validates :name, presence: true, length: {maximum: 50}
 
   def add_measurement!(timestamp, value)
-    $redis.set(self.redis_key(timestamp), value)
+
+    measurement_key = self.redis_measurement_key(timestamp)
+
+    $redis.multi do
+      $redis.set(measurement_key, value)
+      $redis.sadd(redis_sensor_key, measurement_key)
+    end
   end
 
   def remove_measurement!(timestamp)
-    $redis.del(self.redis_key(timestamp))
+
+    measurement_key = self.redis_measurement_key(timestamp)
+
+    $redis.multi do
+      $redis.del(measurement_key)
+      $redis.srem(redis_sensor_key, measurement_key)
+    end
   end
 
-  def redis_key(timestamp)
-    "sensor:#{self.id}:#{timestamp}"
+  def redis_sensor_key
+    "sensor:#{self.id}:measurements"
+  end
+
+  def redis_measurement_key(timestamp)
+    "#{self.redis_sensor_key}:#{timestamp}"
   end
 end
