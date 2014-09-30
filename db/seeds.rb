@@ -6,4 +6,6 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-Sensor.create(uuid: "00000000000000000000000000000000", name: "Test Sensor")
+user = User.create(name: 'Demo User', email: 'team@mysmartgrid.de', password: '12strom', password_confirmation: '12strom')
+
+Sensor.create(uuid: '00000000000000000000000000000000', name: 'Demo Sensor', user_id: user.id)

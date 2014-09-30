@@ -34,7 +34,8 @@ void post_failure(jsonxx::Object data) {
 int main(int argc, const char* argv[]) {
 
     if (argc != 4) {
-        std::cout << "Missing arguments." << argc << std::endl;
+        std::cout << "Usage:" << std::endl;
+        std::cout << " ./client <sensor_uuid> <timestamp> <value>" << std::endl;
         return -1;
     }
 
