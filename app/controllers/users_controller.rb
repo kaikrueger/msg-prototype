@@ -19,7 +19,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       sign_in @user
-      flash[:success] = "Welcome to mySmartGrid!"
+      flash[:success] = 'Welcome to mySmartGrid!'
       redirect_to @user
     else
       render 'new'
@@ -31,7 +31,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update_attributes(user_params)
-      flash[:success] = "Profile updated"
+      flash[:success] = 'Profile updated'
       redirect_to @user
     else
       render 'edit'
@@ -40,7 +40,7 @@ class UsersController < ApplicationController
 
   def destroy
     User.find(params[:id]).destroy
-    flash[:success] = "User deleted."
+    flash[:success] = 'User deleted.'
     redirect_to users_url
   end
 
@@ -56,7 +56,7 @@ class UsersController < ApplicationController
   def signed_in_user
     unless signed_in?
       store_location
-      redirect_to signin_url, notice: "Please sign in."
+      redirect_to signin_url, notice: 'Please sign in.'
     end
   end
 
