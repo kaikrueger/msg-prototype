@@ -1,0 +1,10 @@
+<% provide(:title, 'All devices') %>
+<h1>All Devices</h1>
+
+<%= will_paginate %>
+
+<ul class="devices">
+  <%= render @devices %>
+</ul>
+
+<%= will_paginate %>

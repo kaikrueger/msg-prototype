@@ -1,7 +1,7 @@
 class Sensor < ActiveRecord::Base
 
-  belongs_to :user
-  validates :user_id, presence: true
+  belongs_to :device
+  validates :device_id, presence: true
 
   validates :uuid, presence: true, length: {maximum: 32}
   validates :name, presence: true, length: {maximum: 50}
@@ -12,7 +12,7 @@ class Sensor < ActiveRecord::Base
 
     $redis.multi do
       $redis.set(measurement_key, value)
-      $redis.sadd(redis_sensor_key, measurement_key)
+      $redis.sadd(redis_measurements_key, measurement_key)
     end
   end
 
@@ -22,11 +22,11 @@ class Sensor < ActiveRecord::Base
 
     $redis.multi do
       $redis.del(measurement_key)
-      $redis.srem(redis_sensor_key, measurement_key)
+      $redis.srem(redis_measurements_key, measurement_key)
     end
   end
 
-  def redis_sensor_key
+  def redis_measurements_key
     "sensor:#{self.id}:measurements"
   end
 

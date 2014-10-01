@@ -1,4 +1,4 @@
-class ChartsController < WebsocketRails::BaseController
+class MeasurementsController < WebsocketRails::BaseController
 
   def initialize_session
     # Initialize controller
