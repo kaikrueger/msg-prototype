@@ -12,10 +12,14 @@ user = User.create(name: 'Demo User', email: 'demo@mysmartgrid.de', password: '1
 device_type1 = DeviceType.create(name: 'Flukso 2')
 device_type2 = DeviceType.create(name: 'RaspBerry Pi')
 
-device = Device.create(uuid: '00000000000000000000000000000000', name: 'First Demo Device', user_id: user.id, device_type_id: device_type1.id)
-Device.create(uuid: '11111111111111111111111111111111', name: 'Second Demo Device', user_id: user.id, device_type_id: device_type2.id)
-Device.create(uuid: '22222222222222222222222222222222', name: 'Third Demo Device', user_id: user.id, device_type_id: device_type2.id)
+device1 = Device.create(uuid: '00000000000000000000000000000000', name: 'Home Device', user_id: user.id, device_type_id: device_type1.id)
+device2 = Device.create(uuid: '11111111111111111111111111111111', name: 'Farm Device', user_id: user.id, device_type_id: device_type2.id)
+Device.create(uuid: '22222222222222222222222222222222', name: 'Office Device', user_id: user.id, device_type_id: device_type2.id)
 
-Sensor.create(uuid: '00000000000000000000000000000000', name: 'First Demo Sensor', device_id: device.id)
-Sensor.create(uuid: '11111111111111111111111111111111', name: 'Second Demo Sensor', device_id: device.id)
-Sensor.create(uuid: '22222222222222222222222222222222', name: 'Third Demo Sensor', device_id: device.id)
+sensor_type1 = SensorType.create(name: 'Energy Consumption')
+sensor_type2 = SensorType.create(name: 'Energy Production')
+
+Sensor.create(uuid: '00000000000000000000000000000000', sensor_type: sensor_type1, name: 'First Floor', device_id: device1.id)
+Sensor.create(uuid: '11111111111111111111111111111111', sensor_type: sensor_type1, name: 'Second Floor', device_id: device1.id)
+Sensor.create(uuid: '22222222222222222222222222222222', sensor_type: sensor_type2, name: 'Roof PV Plant', device_id: device2.id)
+Sensor.create(uuid: '33333333333333333333333333333333', sensor_type: sensor_type2, name: 'Backyard PV Plant', device_id: device2.id)

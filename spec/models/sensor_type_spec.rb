@@ -1,20 +1,20 @@
 require 'spec_helper'
 
-describe DeviceType do
+describe SensorType do
 
   before do
-    @device_type = DeviceType.new(name: 'Test')
+    @sensor_type = SensorType.new(name: 'Test')
   end
 
-  subject { @device_type }
+  subject { @sensor_type }
 
   it { should respond_to(:name) }
-  it { should respond_to(:devices) }
+  it { should respond_to(:sensors) }
 
   it { should be_valid }
 
   describe 'when name is not present' do
-    before { @device_type.name = ' ' }
+    before { @sensor_type.name = ' ' }
     it { should_not be_valid }
   end
 

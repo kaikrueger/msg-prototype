@@ -3,6 +3,9 @@ class Sensor < ActiveRecord::Base
   belongs_to :device
   validates :device_id, presence: true
 
+  belongs_to :sensor_type
+  validates :sensor_type_id, presence: true
+
   validates :uuid, presence: true, length: {maximum: 32}
   validates :name, presence: true, length: {maximum: 50}
 

@@ -1,0 +1,25 @@
+<% provide(:title, @device.name) %>
+<div class="row">
+  <aside class="span4">
+    <section>
+      <p>
+        <%= image_tag("device_type#{@device.device_type_id}.png", alt: 'Device') %>
+
+        <%= @device.device_type.name %>
+      </p>
+      <h1>
+        <%= @device.name %>
+      </h1>
+      <p>
+        <br>
+        <b>UUID:</b> <%= @device.uuid %>
+      </p>
+      <p>
+        <b>Created:</b> <%= @device.created_at %>
+      </p>
+      <p>
+        <b>Updated:</b> <%= @device.updated_at %>
+      </p>
+    </section>
+  </aside>
+</div>
