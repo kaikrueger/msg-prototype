@@ -51,10 +51,20 @@ sudo adduser --disabled-login --gecos 'MSG Rails' rails
 
 ```bash
 # Install the database packages
-sudo apt-get install -y postgresql postgresql-client libpq-dev
+sudo apt-get install -y postgresql postgresql-client libpq-dev postgresql-client-9.3 postgresql-9.3
 
 # Login to PostgreSQL
 sudo -u postgres psql -d template1
+
+# Start service
+sudo update-rc.d  postgresql defaults
+
+# sudo pg_createcluster -u rails --start 9.3 rails
+sudo service postgresql start
+
+# create the user
+sudo -u postgres -H createuser -P -d -s msgdb
+sudo -u postgres -H createdb msgdb -O msgdb -E UTF8;
 ```
 
 ### Redis
