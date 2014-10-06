@@ -18,7 +18,7 @@ PATH=/sbin:/usr/sbin:/bin:/usr/bin
 USER="rails"
 RAILS_PID="/var/run/rails/rails.pid"
 RAILS_ROOT="/var/www/playground"
-COMMAND="/usr/local/bin/rails server --pid $RAILS_PID > /dev/null &"
+COMMAND="/usr/local/bin/rails server -e production --pid $RAILS_PID > /dev/null &"
 DESCRIPTION="Rails Server"
 
 # Load the VERBOSE setting and other rcS variables
