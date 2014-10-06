@@ -10,10 +10,12 @@ class SensorsController < ApplicationController
   end
 
   def edit
+    @sensor = Sensor.find(params[:id])
   end
 
   def update
-    if @sensor.update_attributes(user_params)
+    @sensor = Sensor.find(params[:id])
+    if @sensor.update_attributes(sensor_params)
       flash[:success] = 'Sensor updated'
       redirect_to @sensor
     else
@@ -29,8 +31,8 @@ class SensorsController < ApplicationController
 
   private
 
-  def user_params
-    params.require(:sensor).permit(:name, :uuid)
+  def sensor_params
+    params.require(:sensor).permit(:name, :uuid, :sensor_type_id)
   end
 
   # Before filters

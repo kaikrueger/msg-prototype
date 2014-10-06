@@ -1,5 +1,5 @@
 class DevicesController < ApplicationController
-  before_action :signed_in_user, only: [:index]
+  before_action :signed_in_user, only: [:index, :edit, :update, :destroy]
 
   def index
     @devices = Device.paginate(page: params[:page])
@@ -10,10 +10,12 @@ class DevicesController < ApplicationController
   end
 
   def edit
+    @device = Device.find(params[:id])
   end
 
   def update
-    if @device.update_attributes(user_params)
+    @device = Device.find(params[:id])
+    if @device.update_attributes(device_params)
       flash[:success] = 'Device updated'
       redirect_to @device
     else
@@ -29,7 +31,7 @@ class DevicesController < ApplicationController
 
   private
 
-  def user_params
+  def device_params
     params.require(:device).permit(:name, :uuid, :device_type_id)
   end
 
