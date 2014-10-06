@@ -1,4 +1,4 @@
-Install:
+Upgrade:
 
 ### Packages / Dependencies
 
@@ -39,72 +39,22 @@ Install the Bundler Gem:
 sudo gem install bundler --no-ri --no-rdoc
 ```
 
-### System Users
-
-Create a git user for GitLab:
+### Stop the service
 
 ```bash
-sudo adduser --disabled-login --gecos 'MSG Rails' rails
+sudo /etc/init.d/rails stop
 ```
 
-###  Database
-
-```bash
-# Install the database packages
-sudo apt-get install -y postgresql postgresql-client libpq-dev postgresql-client-9.3 postgresql-9.3
-
-# Login to PostgreSQL
-sudo -u postgres psql -d template1
-
-# Start service
-sudo update-rc.d  postgresql defaults
-
-# sudo pg_createcluster -u rails --start 9.3 rails
-sudo service postgresql start
-
-# create the user
-sudo -u postgres -H createuser -P -d -s msgdb
-sudo -u postgres -H createdb msgdb -O msgdb -E UTF8;
-```
-
-### Redis
-
-```bash
-sudo apt-get install redis-server
-
-# Configure redis to use sockets
-sudo cp /etc/redis/redis.conf /etc/redis/redis.conf.orig
-
-# Disable Redis listening on TCP by setting 'port' to 0
-sed 's/^port .*/port 0/' /etc/redis/redis.conf.orig | sudo tee /etc/redis/redis.conf
-
-# Enable Redis socket for default Debian / Ubuntu path
-echo 'unixsocket /var/run/redis/redis.sock' | sudo tee -a /etc/redis/redis.conf
-
-# Activate the changes to redis.conf
-sudo service redis-server restart
-
-# Add git to the redis group
-sudo usermod -aG redis git
-```
-
-
-### Install the application
-
-```bash
-# create the directory
-sudo mkdir -p /var/www/playground
-
-# set the owner of the directory
-sudo chown rails.rails /var/www/playground
-```
+### Update the application
 
 Clone the Source
 
 ```bash
 cd /var/www/playground
-sudo -u rails -H git clone https://github.com/wagnerag/msg-prototype.git .
-sudo -u rails -H git checkout kk-dev
+sudo -u rails -H rm -f log
+sudo -u rails -H git fetch
+sudo -u rails -H git pull
+sudo -u rails -H git checkout master
 ```
 
  Configure It
@@ -115,6 +65,7 @@ sudo -u rails -H git checkout kk-dev
 sudo -u rails -H vi Gemfile
 
 #
+diff -cNrw config/database.yml.example config/database.yml
 sudo -u rails -H cp -i config/database.yml.example config/database.yml
 sudo -u rails -H vi config/database.yml
 ```
@@ -122,15 +73,17 @@ sudo -u rails -H vi config/database.yml
 Install Gems
 
 ```bash
-sudo -u -rails -H bundle install --deployment 
+sudo -u rails -H bundle install --deployment 
+```
+
+```bash
+sudo service postgresql start
 ```
 
  Initialize Database 
 
 ```bash
-sudo -u rails -H bundle exec rake db:setup
-sudo -u rails -H bundle exec rake db:seed
-sudo -u rails -H bundle exec rake db:migrate RAILS_ENV=test
+sudo -u rails -H bundle exec rake db:setup RAILS_ENV=production
 ```
 
 
@@ -149,7 +102,7 @@ sudo update-rc.d rails defaults 21
 
  Setup Logrotate
 
-sudo cp lib/support/logrotate/gitlab /etc/logrotate.d/gitlab
+sudo cp lib/support/logrotate/rails /etc/logrotate.d/rails
 
 
 ### logging
@@ -166,7 +119,10 @@ testing DB
 sudo -u rails -H bundle exec rspec spec/
 ```
 
- Start Your MSG-Instance Instance
+### check nginx configration
+
+
+### Start Your MSG-Instance Instance
 
 ```bash
 sudo service rails start
