@@ -15,6 +15,12 @@
     <%= f.label :name %><br>
     <%= f.text_field :name %>
   </div>
+
+  <div class="field">
+    <%= f.label :sensor_type %><br>
+    <%= f.collection_select :sensor_type_id, ::SensorType.all, :id, :name %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>
