@@ -1,41 +1,27 @@
-class MeasurementsController < ApplicationController
+class MeasurementsController < WebsocketRails::BaseController
 
-  def create
-    measurement = {sensor_uuid: params[:sensor_uuid], timestamp: params[:timestamp], value: params[:value]}
+  def initialize_session
+    # Initialize controller
+  end
 
-    channel = "sensor-#{params[:sensor_uuid]}"
+  def connect_client
+    # New client connected
+  end
+
+  def disconnect_client
+    # Client disconnected
+  end
+
+  def post_measurement
+
+    measurement = {sensor_uuid: message[:sensor_uuid], timestamp: message[:timestamp], value: message[:value]}
+
+    channel = "sensor-#{message[:sensor_uuid]}"
     WebsocketRails[channel].trigger('create', measurement)
-    render json: {message: 'Measurement created'}
 
-    sensor = Sensor.find_by(uuid: params[:sensor_uuid])
-    sensor.add_measurement! params[:timestamp], params[:value]
-  end
+    sensor = Sensor.find_by(uuid: message[:sensor_uuid])
+    sensor.add_measurement! message[:timestamp], message[:value]
 
-  def update
-    measurement = {sensor_uuid: params[:sensor_uuid], timestamp: params[:timestamp], value: params[:value]}
-
-    channel = "sensor-#{params[:sensor_uuid]}"
-    WebsocketRails[channel].trigger('update', measurement)
-    render json: {message: 'Measurement updated'}
-
-    sensor = Sensor.find_by(uuid: params[:sensor_uuid])
-    sensor.add_measurement! params[:timestamp], params[:value]
-  end
-
-  def destroy
-    measurement = {sensor_uuid: params[:sensor_uuid], timestamp: params[:timestamp]}
-
-    channel = "sensor-#{params[:sensor_uuid]}"
-    WebsocketRails[channel].trigger('destroy', measurement)
-    render json: {message: 'Measurement destroyed'}
-
-    sensor = Sensor.find_by(uuid: params[:sensor_uuid])
-    sensor.remove_measurement! params[:timestamp]
-  end
-
-  private
-
-  def measurement_params
-    params.require(:measurement).permit(:sensor_uuid, :timestamp, :value)
+    send_message :post_success, 'post_success', :namespace => :measurements
   end
 end

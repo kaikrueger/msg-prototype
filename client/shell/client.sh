@@ -6,7 +6,6 @@ while true; do
 
   sleep 1
   timestamp=$(date +%s)
-  ./client
   curl -v -X POST -H "Accept: application/json" -d "sensor_uuid=$sensor_uuid&timestamp=$timestamp&value=100" "http://localhost:3000/measurements.json"
 
   sleep 1

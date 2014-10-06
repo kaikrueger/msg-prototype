@@ -2,9 +2,9 @@ SampleApp::Application.routes.draw do
 
   resources :users
 
-  resources :sensors
+  resources :devices
 
-  resources :measurements
+  resources :sensors
 
   resources :sessions, only: [:new, :create, :destroy]
   root  'static_pages#home'

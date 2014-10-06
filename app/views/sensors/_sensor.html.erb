@@ -1,0 +1,9 @@
+<li>
+  <div>
+      <%= image_tag("sensor_type#{sensor.sensor_type_id}.png", alt: 'Sensor') %>
+      <%= link_to sensor.name, sensor %>
+  </div>
+  <span>
+      <%= link_to 'delete', sensor, method: :delete, data: {confirm: 'Are you sure?'} %>
+  </span>
+</li>
