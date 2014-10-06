@@ -1,10 +1,12 @@
 <li>
-  <%= image_tag("device_type#{device.device_type_id}.png", alt: 'Device') %>
-  <%= link_to device.name, device %>
-      | <%= link_to 'delete', device, method: :delete,
-                    data: {confirm: 'Are you sure?'} %>
-
+  <div>
+      <%= image_tag("device_type#{device.device_type_id}.png", alt: 'Device') %>
+      <%= link_to device.name, device %>
+  </div>
+  <span>
+      <%= link_to 'delete', device, method: :delete, data: {confirm: 'Are you sure?'} %>
+  </span>
   <ul class="sensors">
-    <%= render device.sensors %>
+      <%= render device.sensors %>
   </ul>
 </li>
