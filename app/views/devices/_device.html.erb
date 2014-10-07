@@ -1,14 +1,16 @@
 <li>
+  <div style="text-align: right;">
+    <%= link_to 'details', device %> |
+    <%= link_to 'edit', edit_device_path(device) %> |
+    <%= link_to 'delete', device, method: :delete, data: {confirm: 'Are you sure?'} %>
+  </div>
   <div>
       <%= image_tag("device_type#{device.device_type_id}.png", alt: 'Device') %>
       <%= device.name %>
   </div>
-  <span>
-      <%= link_to 'details', device %> |
-      <%= link_to 'edit', edit_device_path(device) %> |
-      <%= link_to 'delete', device, method: :delete, data: {confirm: 'Are you sure?'} %>
-  </span>
-  <ul class="sensors">
-      <%= render device.sensors %>
-  </ul>
+  <div>
+      <ul class="sensors">
+          <%= render device.sensors %>
+      </ul>
+  </div>
 </li>

@@ -1,11 +1,18 @@
 <li>
-  <div>
+  <div class="sensor-icon-div">
     <%= image_tag("sensor_type#{sensor.sensor_type_id}.png", alt: 'Sensor') %>
     <%= sensor.name %>
   </div>
-  <span>
-      <%= link_to 'details', sensor %> |
+
+  <div id="gauge<%= sensor.id %>" class="sensor-gauge-div"></div>
+
+  <div class="sensor-links-div">
+    <%= link_to 'details', sensor %> |
     <%= link_to 'edit', edit_sensor_path(sensor) %> |
     <%= link_to 'delete', sensor, method: :delete, data: {confirm: 'Are you sure?'} %>
-  </span>
+  </div>
 </li>
+
+<%= javascript_tag defer: 'defer' do %>
+    createSensorGauge("<%= sensor.id %>");
+<% end %>

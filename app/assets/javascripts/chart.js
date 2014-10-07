@@ -1,27 +1,46 @@
-$(function () {
 
-    function date2string(date) {
-        var hr = date.getHours();
-        var min = date.getMinutes();
-        if (min < 10) {
-            min = "0" + min;
-        }
-        var sec = date.getSeconds();
-        if (sec < 10) {
-            sec = "0" + sec;
-        }
-        return hr + ":" + min + ":" + sec;
+function date2string(date) {
+    var hr = date.getHours();
+    var min = date.getMinutes();
+    if (min < 10) {
+        min = "0" + min;
     }
+    var sec = date.getSeconds();
+    if (sec < 10) {
+        sec = "0" + sec;
+    }
+    return hr + ":" + min + ":" + sec;
+}
 
-    var now = Math.round(new Date() / 1000);
-    var lineChart = $('#lineChart').epoch({
+function getNowTimestamp() {
+    return Math.round(new Date() / 1000);
+}
+
+function createGauge(id, name, unit) {
+
+    return new JustGage({
+        id: id,
+        value: "0",
+        min: 0,
+        max: 1000,
+        levelColors: [ "#2A4026", "#B6D96C", "#2A4026" ],
+        levelColorsGradient: true,
+        title: name,
+        titleFontColor : (name == null ? 'white' : 'gray'),
+        label: unit
+    });
+}
+
+function createLineChart(id) {
+
+    return $('#' + id).epoch({
         type: 'time.line',
         label: "Frequency",
         data: [
             {
                 label: 'Frequency',
                 values: [
-                    {time: now, y: 0.0}
+                    {time: getNowTimestamp(), y: 0.0}
                 ]
             }
         ],
@@ -38,37 +57,45 @@ $(function () {
         historySize: 20,
         queueSize: 60
     });
+}
 
-    var gauge = new JustGage({
-        id: "gauge",
-        value: "0",
-        min: 0,
-        max: 1000,
-        levelColors: [ "#2A4026", "#B6D96C", "#2A4026" ],
-        levelColorsGradient: true,
-        title: "Wasserkocher",
-        label: "W"
-    });
+function createDispatcher(id, callback) {
 
     if (window["WebSocket"]) {
 
-        function updateCharts(measurement) {
-
-            var now = Math.round(new Date() / 1000);
-            lineChart.push([
-                {time: now, y: measurement.value}
-            ]);
-            gauge.refresh(Number(measurement.value).toFixed(1));
-        }
-
         var dispatcher = new WebSocketRails(window.location.host + '/websocket');
+        var channel = dispatcher.subscribe("sensor-" + id);
 
-        var channel = dispatcher.subscribe('sensor-00000000000000000000000000000000');
-
-        channel.bind('create', updateCharts);
-        channel.bind('update', updateCharts);
+        channel.bind('create', callback);
+        channel.bind('update', callback);
 
     } else {
         alert("Your Browser does not support WebSocket.");
     }
-});
+}
+
+function createHomeCharts() {
+
+    var lineChart = createLineChart("lineChart");
+    var gauge = createGauge("gauge", "Wasserkocher", "W");
+
+    createDispatcher('00000000000000000000000000000000', function (measurement) {
+
+        lineChart.push([
+            {
+                time: getNowTimestamp(),
+                y: measurement.value
+            }
+        ]);
+        gauge.refresh(Number(measurement.value).toFixed(1));
+    });
+}
+
+function createSensorGauge(id) {
+
+        var gauge = createGauge("gauge" + id, null, "W");
+
+        createDispatcher(id, function (measurement) {
+            gauge.refresh(Number(measurement.value).toFixed(1));
+        });
+}

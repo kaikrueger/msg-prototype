@@ -247,13 +247,6 @@ input {
       border-bottom: 1px solid $grayLighter;
     }
   }
-  div {
-    display: block;
-  }
-  span {
-    display: block;
-    text-align: right;
-  }
 }
 
 /* Sensors index */
@@ -262,18 +255,32 @@ input {
   list-style: none;
   margin: 0;
   li {
+    height: 90px;
     overflow: auto;
     padding: 5px 0px 0px 70px;
     border-top: 1px solid $grayLighter;
     &:last-child {
       border-bottom: 1px solid $grayLighter;
     }
+    vertical-align: middle;
   }
-  div {
-    display: block;
-  }
-  span {
-    display: block;
-    text-align: right;
-  }
+}
+
+.sensor-icon-div {
+  width: 180px;
+  display: inline;
+  float: left;
+}
+
+.sensor-gauge-div {
+  height: 80px;
+  width: 100px;
+  display: inline;
+  float: left;
+}
+
+.sensor-links-div {
+  height: 50px;
+  display: inline;
+  float: right;
 }
