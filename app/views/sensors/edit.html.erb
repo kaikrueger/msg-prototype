@@ -11,6 +11,15 @@
         <%= f.label :sensor_type %>
         <%= f.collection_select :sensor_type_id, ::SensorType.all, :id, :name %>
 
+        <%= f.label :unit %>
+        <%= f.collection_select :unit_id, ::Unit.all, :id, :name %>
+
+        <%= f.label :min_value %>
+        <%= f.number_field :min_value %>
+
+        <%= f.label :max_value %>
+        <%= f.number_field :max_value %>
+
         <%= f.submit 'Save changes', class: "btn btn-large btn-primary" %>
     <% end %>
   </div>

@@ -1,27 +1,42 @@
 <%= form_for(@sensor) do |f| %>
-  <% if @sensor.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@sensor.errors.count, 'error') %> prohibited this sensor from being saved:</h2>
+    <% if @sensor.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@sensor.errors.count, 'error') %> prohibited this sensor from being saved:</h2>
 
-      <ul>
-      <% @sensor.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+          <ul>
+            <% @sensor.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :name %><br>
+      <%= f.text_field :name %>
     </div>
-  <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
+    <div class="field">
+      <%= f.label :sensor_type %><br>
+      <%= f.collection_select :sensor_type_id, ::SensorType.all, :id, :name %>
+    </div>
 
-  <div class="field">
-    <%= f.label :sensor_type %><br>
-    <%= f.collection_select :sensor_type_id, ::SensorType.all, :id, :name %>
-  </div>
+    <div class="field">
+      <%= f.label :unit %><br>
+      <%= f.collection_select :unit_id, ::Unit.all, :id, :name %>
+    </div>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <div class="field">
+      <%= f.label :min_value %><br>
+      <%= f.number_field :min_value %>
+    </div>
+
+    <div class="field">
+      <%= f.label :max_value %><br>
+      <%= f.number_field :max_value %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
 <% end %>

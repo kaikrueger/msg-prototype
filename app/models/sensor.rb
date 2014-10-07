@@ -6,8 +6,13 @@ class Sensor < ActiveRecord::Base
   belongs_to :sensor_type
   validates :sensor_type_id, presence: true
 
+  belongs_to :unit
+  validates :unit_id, presence: true
+
   validates :uuid, presence: true, length: {maximum: 32}
   validates :name, presence: true, length: {maximum: 50}
+
+  validates :max_value, presence: true
 
   def add_measurement!(timestamp, value)
 
