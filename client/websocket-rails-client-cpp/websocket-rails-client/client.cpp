@@ -45,7 +45,7 @@ int main(int argc, const char* argv[]) {
     jsonxx::Object measurement;
     measurement.parse(os.str());
 
-    WebsocketRails dispatcher("ws://localhost:3000/websocket");
+    WebsocketRails dispatcher("wss://dev4-playground.mysmartgrid.de/websocket");
     dispatcher.onOpen(boost::bind(on_open, _1));
     dispatcher.onClose(boost::bind(on_close, _1));
     dispatcher.onFail(boost::bind(on_fail, _1));
