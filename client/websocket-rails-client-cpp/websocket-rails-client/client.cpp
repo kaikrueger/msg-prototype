@@ -33,9 +33,9 @@ void post_failure(jsonxx::Object data) {
 
 int main(int argc, const char* argv[]) {
 
-    if (argc != 4) {
+    if (argc != 5) {
         std::cout << "Usage:" << std::endl;
-        std::cout << " ./client <sensor_uuid> <timestamp> <value>" << std::endl;
+        std::cout << " ./client <sensor_uuid> <timestamp> <value> <url>" << std::endl;
         return -1;
     }
 
@@ -45,7 +45,7 @@ int main(int argc, const char* argv[]) {
     jsonxx::Object measurement;
     measurement.parse(os.str());
 
-    WebsocketRails dispatcher("wss://dev4-playground.mysmartgrid.de/websocket");
+    WebsocketRails dispatcher(argv[4]);
     dispatcher.onOpen(boost::bind(on_open, _1));
     dispatcher.onClose(boost::bind(on_close, _1));
     dispatcher.onFail(boost::bind(on_fail, _1));

@@ -4,7 +4,7 @@
     <%= sensor.name %>
   </div>
 
-  <div id="gauge<%= sensor.id %>" class="sensor-gauge-div"></div>
+  <div id="gauge<%= sensor.uuid %>" class="sensor-gauge-div"></div>
 
   <div class="sensor-links-div">
     <%= link_to 'details', sensor %> |
@@ -14,5 +14,5 @@
 </li>
 
 <%= javascript_tag defer: 'defer' do %>
-    createSensorGauge("<%= sensor.id %>");
+    createSensorGauge("<%= sensor.uuid %>");
 <% end %>
