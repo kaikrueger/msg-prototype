@@ -91,9 +91,9 @@ function createHomeCharts() {
     });
 }
 
-function createSensorGauge(id) {
+function createSensorGauge(id, unit) {
 
-        var gauge = createGauge("gauge" + id, null, "W");
+        var gauge = createGauge("gauge" + id, null, unit);
 
         createDispatcher(id, function (measurement) {
             gauge.refresh(Number(measurement.value).toFixed(1));
