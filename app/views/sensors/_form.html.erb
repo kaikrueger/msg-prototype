@@ -21,6 +21,11 @@
     <%= f.collection_select :sensor_type_id, ::SensorType.all, :id, :name %>
   </div>
 
+  <div class="field">
+    <%= f.label :unit %><br>
+    <%= f.collection_select :unit_id, ::Unit.all, :id, :name %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

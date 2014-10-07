@@ -12,6 +12,8 @@ class Sensor < ActiveRecord::Base
   validates :uuid, presence: true, length: {maximum: 32}
   validates :name, presence: true, length: {maximum: 50}
 
+  validates :max_value, presence: true
+
   def add_measurement!(timestamp, value)
 
     measurement_key = self.redis_measurement_key(timestamp)

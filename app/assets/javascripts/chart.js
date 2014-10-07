@@ -16,13 +16,13 @@ function getNowTimestamp() {
     return Math.round(new Date() / 1000);
 }
 
-function createGauge(id, name, unit) {
+function createGauge(id, name, unit, min, max) {
 
     return new JustGage({
         id: id,
         value: "0",
-        min: 0,
-        max: 1000,
+        min: min,
+        max: max,
         levelColors: [ "#2A4026", "#B6D96C", "#2A4026" ],
         levelColorsGradient: true,
         title: name,
@@ -91,9 +91,9 @@ function createHomeCharts() {
     });
 }
 
-function createSensorGauge(id, unit) {
+function createSensorGauge(id, unit, min, max) {
 
-        var gauge = createGauge("gauge" + id, null, unit);
+        var gauge = createGauge("gauge" + id, null, unit, min, max);
 
         createDispatcher(id, function (measurement) {
             gauge.refresh(Number(measurement.value).toFixed(1));

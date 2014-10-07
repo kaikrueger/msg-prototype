@@ -32,7 +32,7 @@ class SensorsController < ApplicationController
   private
 
   def sensor_params
-    params.require(:sensor).permit(:name, :uuid, :sensor_type_id)
+    params.require(:sensor).permit(:name, :uuid, :sensor_type_id, :unit_id)
   end
 
   # Before filters

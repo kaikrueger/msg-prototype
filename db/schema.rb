@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141007130737) do
+ActiveRecord::Schema.define(version: 20141007135040) do
 
   create_table "device_types", force: true do |t|
     t.string   "name"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20141007130737) do
     t.integer  "device_id"
     t.integer  "sensor_type_id"
     t.integer  "unit_id"
+    t.float    "max_value"
   end
 
   create_table "units", force: true do |t|
