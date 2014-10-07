@@ -8,13 +8,14 @@ describe Sensor do
   let(:unit) { Unit.create(name: 'Test', symbol: 'T') }
   let(:device) { Device.create(uuid: '12345678901234567890123456789012', name: 'Device 123', device_type_id: device_type.id, user_id: user.id) }
   before {
-    @sensor = device.sensors.build(uuid: '12345678901234567890123456789012', name: 'Sensor 123', sensor_type_id: sensor_type.id, unit_id: unit.id, max_value: 1000)
+    @sensor = device.sensors.build(uuid: '12345678901234567890123456789012', name: 'Sensor 123', sensor_type_id: sensor_type.id, unit_id: unit.id, min_value: 0, max_value: 1000)
   }
 
   subject { @sensor }
 
   it { should respond_to(:uuid) }
   it { should respond_to(:name) }
+  it { should respond_to(:min_value) }
   it { should respond_to(:max_value) }
 
   it { should respond_to(:sensor_type_id) }

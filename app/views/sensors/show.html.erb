@@ -20,9 +20,6 @@
       </h1>
       <p>
         <br>
-        <b>Unit:</b> <%= @sensor.unit.name %>
-      </p>
-      <p>
         <b>UUID:</b> <%= @sensor.uuid %>
       </p>
       <p>
@@ -30,6 +27,15 @@
       </p>
       <p>
         <b>Updated:</b> <%= @sensor.updated_at %>
+      </p>
+      <p>
+        <b>Unit:</b> <%= @sensor.unit.name %>
+      </p>
+      <p>
+        <b>Min Value:</b> <%= @sensor.min_value %>
+      </p>
+      <p>
+        <b>Max Value:</b> <%= @sensor.max_value %>
       </p>
     </section>
   </aside>
