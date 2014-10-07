@@ -65,6 +65,8 @@ public:
   void onOpen(cb_func callback);
   void onClose(cb_func callback);
   void onFail(cb_func callback);
+	context_ptr on_tls_init(websocketpp::connection_hdl hdl);
+
   cb_func getOnCloseCallback();
   cb_func getOnFailCallback();
 

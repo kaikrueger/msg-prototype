@@ -27,7 +27,8 @@ set_source_files_properties(${client_SRCS} COMPILE_FLAGS "-std=c++0x -D_WEBSOCKE
 
 add_executable(client ${client_srcs})    
 target_link_libraries(client websocket)
-target_link_libraries(client ${Boost_LIBRARIES})
+target_link_libraries(client ${Boost_LIBRARIES} pthread)
+target_link_libraries(client ${OPENSSL_SSL_LIBRARY} ${OPENSSL_CRYPTO_LIBRARY})
 
 
 

@@ -20,6 +20,13 @@ set(VERSION_DATE "2014-10-01")
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/modules")
 
 #include ( CompilerFlags )
+find_package(OpenSSL)
+
+set (WEBSOCKETPP_PLATFORM_LIBS pthread rt)
+set (WEBSOCKETPP_PLATFORM_TSL_LIBS ssl crypto)
+set (WEBSOCKETPP_BOOST_LIBS system thread)
+#set (CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++0x")
+#set (CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-D")
 
 set(JSONXX_HOME "${CMAKE_SOURCE_DIR}/../jsonxx")
 set(WEBSOCKETPP_HOME "${CMAKE_SOURCE_DIR}/../websocketpp")

@@ -52,6 +52,8 @@ WebsocketConnection::WebsocketConnection(std::string url, WebsocketRails & dispa
   this->ws_client.set_close_handler(bind(&WebsocketConnection::closeHandler,this,::_1));
   this->ws_client.set_fail_handler(bind(&WebsocketConnection::failHandler,this,::_1));
   this->ws_client.set_message_handler(bind(&WebsocketConnection::messageHandler,this,::_1,::_2));
+	this->ws_client.set_tls_init_handler(bind(&WebsocketConnection::on_tls_init,this,::_1));
+
 }
 
 
@@ -179,6 +181,19 @@ void WebsocketConnection::messageHandler(websocketpp::connection_hdl hdl, messag
   }
 }
 
+context_ptr WebsocketConnection::on_tls_init(websocketpp::connection_hdl hdl) {
+	//m_tls_init = std::chrono::high_resolution_clock::now();
+	context_ptr ctx(new boost::asio::ssl::context(boost::asio::ssl::context::tlsv1));
+	
+	try {
+		ctx->set_options(boost::asio::ssl::context::default_workarounds |
+										 boost::asio::ssl::context::no_sslv2 |
+										 boost::asio::ssl::context::single_dh_use);
+	} catch (std::exception& e) {
+		std::cout << e.what() << std::endl;
+	}
+	return ctx;
+}
 
 void WebsocketConnection::sendEvent(Event event) {
   if(this->connection_id != "") {

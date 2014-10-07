@@ -28,6 +28,8 @@
 #include "websocket.hpp"
 #include "event.hpp"
 
+typedef websocketpp::lib::shared_ptr<boost::asio::ssl::context> context_ptr;
+
 class WebsocketRails;
 
 class WebsocketConnection {
@@ -37,8 +39,8 @@ public:
    *  Type Definitions and Variables
    **/
   typedef websocketpp::lib::lock_guard<websocketpp::lib::mutex> websocket_lock;
-  typedef websocketpp::client<websocketpp::config::asio_client> client;
-  typedef websocketpp::config::asio_client::message_type::ptr message_ptr;
+  typedef websocketpp::client<websocketpp::config::asio_tls_client> client;
+  typedef websocketpp::config::asio_tls_client::message_type::ptr message_ptr;
   websocketpp::lib::mutex ws_mutex;
   static const std::string connection_type;
 
@@ -77,6 +79,7 @@ private:
   void closeHandler(websocketpp::connection_hdl hdl);
   void failHandler(websocketpp::connection_hdl hdl);
   void messageHandler(websocketpp::connection_hdl hdl, message_ptr msg);
+	context_ptr on_tls_init(websocketpp::connection_hdl hdl);
   void sendEvent(Event event);
 
 };
