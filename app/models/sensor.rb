@@ -39,6 +39,6 @@ class Sensor < ActiveRecord::Base
   end
 
   def redis_measurement_key(timestamp)
-    "#{self.redis_sensor_key}:#{timestamp}"
+    "#{self.redis_measurements_key}:#{timestamp}"
   end
 end
