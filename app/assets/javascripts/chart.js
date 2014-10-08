@@ -77,7 +77,7 @@ function createDispatcher(id, callback) {
 function createHomeCharts() {
 
     var lineChart = createLineChart("lineChart");
-    var gauge = createGauge("gauge", "Wasserkocher", "W");
+    var gauge = createGauge("gauge", "Wasserkocher", "W", 0, 600);
 
     createDispatcher('00000000000000000000000000000000', function (measurement) {
 
