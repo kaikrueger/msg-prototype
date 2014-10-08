@@ -7,5 +7,12 @@
         <%= @user.name %>
       </h1>
     </section>
+    <section>
+      <p><b>Member since:</b> <%= @user.created_at %></p>
+      <p><b>E-mail:</b> <%= @user.email %></p>
+    </section>
+    <section>
+      <p>You have <%= link_to @user.devices.size, devices_path %> active devices.</p>
+    </section>
   </aside>
 </div>
