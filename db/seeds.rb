@@ -24,14 +24,27 @@ sensor_type_unit1 = SensorTypeUnit.create(sensor_type_id: sensor_type1.id, unit_
 sensor_type_unit2 = SensorTypeUnit.create(sensor_type_id: sensor_type2.id, unit_id: unit1.id)
 sensor_type_unit3 = SensorTypeUnit.create(sensor_type_id: sensor_type3.id, unit_id: unit2.id)
 
-Sensor.create(uuid: 'd1d1d1d1d1d1d1d1s1s1s1s1s1s1s1s1', sensor_type_unit_id: sensor_type_unit1.id, name: 'First Floor', device_id: device1.id, min_value: 0, max_value: 1000)
-Sensor.create(uuid: 'd1d1d1d1d1d1d1d1s2s2s2s2s2s2s2s2', sensor_type_unit_id: sensor_type_unit1.id, name: 'Second Floor', device_id: device1.id, min_value: 0, max_value: 1000)
+sensor1 = Sensor.create(uuid: 'd1d1d1d1d1d1d1d1s1s1s1s1s1s1s1s1', sensor_type_unit_id: sensor_type_unit1.id, name: 'First Floor', device_id: device1.id, min_value: 0, max_value: 1000)
+sensor2 = Sensor.create(uuid: 'd1d1d1d1d1d1d1d1s2s2s2s2s2s2s2s2', sensor_type_unit_id: sensor_type_unit1.id, name: 'Second Floor', device_id: device1.id, min_value: 0, max_value: 1000)
 
-Sensor.create(uuid: 'd2d2d2d2d2d2d2d2s1s1s1s1s1s1s1s1', sensor_type_unit_id: sensor_type_unit2.id, name: 'Roof PV Plant', device_id: device2.id, min_value: 0, max_value: 1000)
-Sensor.create(uuid: 'd2d2d2d2d2d2d2d2s2s2s2s2s2s2s2s2', sensor_type_unit_id: sensor_type_unit2.id, name: 'Backyard PV Plant', device_id: device2.id, min_value: 0, max_value: 1000)
+sensor3 = Sensor.create(uuid: 'd2d2d2d2d2d2d2d2s1s1s1s1s1s1s1s1', sensor_type_unit_id: sensor_type_unit2.id, name: 'Roof PV Plant', device_id: device2.id, min_value: 0, max_value: 1000)
+sensor4 = Sensor.create(uuid: 'd2d2d2d2d2d2d2d2s2s2s2s2s2s2s2s2', sensor_type_unit_id: sensor_type_unit2.id, name: 'Backyard PV Plant', device_id: device2.id, min_value: 0, max_value: 1000)
 
-Sensor.create(uuid: 'd3d3d3d3d3d3d3d3s1s1s1s1s1s1s1s1', sensor_type_unit_id: sensor_type_unit3.id, name: 'Thermostat', device_id: device3.id, min_value: -40, max_value: 40)
-Sensor.create(uuid: 'd3d3d3d3d3d3d3d3s2s2s2s2s2s2s2s2', sensor_type_unit_id: sensor_type_unit1.id, name: 'Equipment', device_id: device3.id, min_value: 0, max_value: 1000)
+sensor5 = Sensor.create(uuid: 'd3d3d3d3d3d3d3d3s1s1s1s1s1s1s1s1', sensor_type_unit_id: sensor_type_unit3.id, name: 'Thermostat', device_id: device3.id, min_value: -40, max_value: 40)
+sensor6 = Sensor.create(uuid: 'd3d3d3d3d3d3d3d3s2s2s2s2s2s2s2s2', sensor_type_unit_id: sensor_type_unit1.id, name: 'Equipment', device_id: device3.id, min_value: 0, max_value: 1000)
 
-Sensor.create(uuid: 'd4d4d4d4d4d4d4d4s1s1s1s1s1s1s1s1', sensor_type_unit_id: sensor_type_unit1.id, name: 'Aggregated Consumption', device_id: device4.id, min_value: 0, max_value: 10000)
-Sensor.create(uuid: 'd4d4d4d4d4d4d4d4s2s2s2s2s2s2s2s2', sensor_type_unit_id: sensor_type_unit2.id, name: 'Aggregated Production', device_id: device4.id, min_value: 0, max_value: 10000)
+sensor7 = Sensor.create(uuid: 'd4d4d4d4d4d4d4d4s1s1s1s1s1s1s1s1', sensor_type_unit_id: sensor_type_unit1.id, name: 'Total Consumption', device_id: device4.id, min_value: 0, max_value: 10000)
+sensor8 = Sensor.create(uuid: 'd4d4d4d4d4d4d4d4s2s2s2s2s2s2s2s2', sensor_type_unit_id: sensor_type_unit2.id, name: 'Total Production', device_id: device4.id, min_value: 0, max_value: 10000)
+
+
+timestamp = 1400000000
+minutes = 60
+
+while minutes > 0
+  timestamp = timestamp - minutes
+
+  sensor7.add_measurement! timestamp, 1000
+  sensor6.add_measurement! timestamp, 2000
+
+  minutes = minutes - 1
+end
