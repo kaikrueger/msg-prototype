@@ -1,6 +1,6 @@
 <li>
   <div class="sensor-icon-div">
-    <%= image_tag("sensor_type#{sensor.sensor_type_id}.png", alt: 'Sensor') %>
+    <%= image_tag("sensor_type#{sensor.sensor_type_unit.sensor_type.id}.png", alt: 'Sensor') %>
     <%= sensor.name %>
   </div>
 
@@ -14,5 +14,5 @@
 </li>
 
 <%= javascript_tag defer: 'defer' do %>
-    createSensorGauge("<%= sensor.uuid %>", "<%= sensor.unit.symbol %>", <%= sensor.min_value %>, <%= sensor.max_value %>);
+    createSensorGauge("<%= sensor.uuid %>", "<%= sensor.sensor_type_unit.unit.symbol %>", <%= sensor.min_value %>, <%= sensor.max_value %>);
 <% end %>

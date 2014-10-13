@@ -9,10 +9,7 @@
         <%= f.text_field :name %>
 
         <%= f.label :sensor_type %>
-        <%= f.collection_select :sensor_type_id, ::SensorType.all, :id, :name %>
-
-        <%= f.label :unit %>
-        <%= f.collection_select :unit_id, ::Unit.all, :id, :name %>
+        <%= f.collection_select :sensor_type_unit_id, ::SensorTypeUnit.all, :id, :name %>
 
         <%= f.label :min_value %>
         <%= f.number_field :min_value %>

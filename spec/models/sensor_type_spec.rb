@@ -9,7 +9,7 @@ describe SensorType do
   subject { @sensor_type }
 
   it { should respond_to(:name) }
-  it { should respond_to(:sensors) }
+  it { should respond_to(:sensor_type_units) }
 
   it { should be_valid }
 

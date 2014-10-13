@@ -6,9 +6,10 @@ describe Sensor do
   let(:device_type) { DeviceType.create(name: 'Test') }
   let(:sensor_type) { SensorType.create(name: 'Test') }
   let(:unit) { Unit.create(name: 'Test', symbol: 'T') }
+  let(:sensor_type_unit) { SensorTypeUnit.create(sensor_type_id: sensor_type.id, unit_id: unit.id) }
   let(:device) { Device.create(uuid: '12345678901234567890123456789012', name: 'Device 123', device_type_id: device_type.id, user_id: user.id) }
   before {
-    @sensor = device.sensors.build(uuid: '12345678901234567890123456789012', name: 'Sensor 123', sensor_type_id: sensor_type.id, unit_id: unit.id, min_value: 0, max_value: 1000)
+    @sensor = device.sensors.build(uuid: '12345678901234567890123456789012', name: 'Sensor 123', sensor_type_unit_id: sensor_type_unit.id, min_value: 0, max_value: 1000)
   }
 
   subject { @sensor }
@@ -18,17 +19,13 @@ describe Sensor do
   it { should respond_to(:min_value) }
   it { should respond_to(:max_value) }
 
-  it { should respond_to(:sensor_type_id) }
-  it { should respond_to(:sensor_type) }
-  its(:sensor_type) { should eq sensor_type }
+  it { should respond_to(:sensor_type_unit_id) }
+  it { should respond_to(:sensor_type_unit) }
+  its(:sensor_type_unit) { should eq sensor_type_unit }
 
   it { should respond_to(:device_id) }
   it { should respond_to(:device) }
   its(:device) { should eq device }
-
-  it { should respond_to(:unit_id) }
-  it { should respond_to(:unit) }
-  its(:unit) { should eq unit }
 
   it { should be_valid }
 

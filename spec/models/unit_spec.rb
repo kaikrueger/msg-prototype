@@ -9,7 +9,7 @@ describe Unit do
   subject { @unit }
 
   it { should respond_to(:name) }
-  it { should respond_to(:sensors) }
+  it { should respond_to(:sensor_type_units) }
   it { should respond_to(:symbol) }
 
   it { should be_valid }
