@@ -37,14 +37,25 @@ sensor7 = Sensor.create(uuid: 'd4d4d4d4d4d4d4d4s1s1s1s1s1s1s1s1', sensor_type_un
 sensor8 = Sensor.create(uuid: 'd4d4d4d4d4d4d4d4s2s2s2s2s2s2s2s2', sensor_type_unit_id: sensor_type_unit2.id, name: 'Total Production', device_id: device4.id, min_value: 0, max_value: 10000)
 
 
-timestamp = 1400000000
+timestamp = Time.now.to_i
 minutes = 60
+watt = 100
+celsius = 15
 
 while minutes > 0
   timestamp = timestamp - minutes
 
-  sensor7.add_measurement! timestamp, 1000
-  sensor6.add_measurement! timestamp, 2000
+  sensor1.add_measurement! timestamp, watt
+  sensor2.add_measurement! timestamp, watt
+  sensor3.add_measurement! timestamp, watt
+  sensor4.add_measurement! timestamp, watt
+  sensor5.add_measurement! timestamp, celsius
+  sensor6.add_measurement! timestamp, watt
 
-  minutes = minutes - 1
+  sensor7.add_measurement! timestamp, watt * 3
+  sensor8.add_measurement! timestamp, watt * 2
+
+  minutes -= 1
+  watt += 10
+  celsius += 0.2
 end
