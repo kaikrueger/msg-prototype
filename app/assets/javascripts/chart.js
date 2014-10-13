@@ -44,8 +44,6 @@ function createLineChart(id) {
                 ]
             }
         ],
-        width: 300,
-        height: 150,
         ticks: { time: 30 },
         tickFormats: {
             bottom: function (d) {
@@ -74,28 +72,40 @@ function createDispatcher(id, callback) {
     }
 }
 
-function createHomeCharts() {
+function createSensorGauge(sensorId, chartId, title, unit, min, max) {
 
-    var lineChart = createLineChart("lineChart");
-    var gauge = createGauge("gauge", "Wasserkocher", "W", 0, 600);
+    var gauge = createGauge(chartId, title, unit, min, max);
 
-    createDispatcher('00000000000000000000000000000000', function (measurement) {
+    createDispatcher(sensorId, function (measurement) {
+        gauge.refresh(Number(measurement.value).toFixed(1));
+    });
+}
 
-        lineChart.push([
+function createSensorLineChart(sensorId, chartId) {
+
+    var chart = createLineChart(chartId);
+
+    createDispatcher(sensorId, function (measurement) {
+
+        chart.push([
             {
                 time: getNowTimestamp(),
                 y: measurement.value
             }
         ]);
-        gauge.refresh(Number(measurement.value).toFixed(1));
     });
 }
 
-function createSensorGauge(id, unit, min, max) {
+function createDashboardCharts() {
 
-        var gauge = createGauge("gauge" + id, null, unit, min, max);
+    createSensorLineChart("d4d4d4d4d4d4d4d4s1s1s1s1s1s1s1s1", "consumptionChart");
+    createSensorLineChart("d4d4d4d4d4d4d4d4s2s2s2s2s2s2s2s2", "productionChart");
+}
 
-        createDispatcher(id, function (measurement) {
-            gauge.refresh(Number(measurement.value).toFixed(1));
-        });
+function createDemoCharts() {
+
+    var sensorId = "d1d1d1d1d1d1d1d1s1s1s1s1s1s1s1s1";
+
+    createSensorGauge(sensorId, "demoGauge", "Kettle", "W", 0, 600);
+    createSensorLineChart(sensorId, "demoChart");
 }

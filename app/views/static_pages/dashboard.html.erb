@@ -1,0 +1,18 @@
+
+<section class="chart-container">
+
+  <h2>Energy Consumption</h2>
+
+  <div id="consumptionChart" class="dashboard-chart-div epoch"></div>
+</section>
+
+<section class="chart-container">
+
+  <h2>Energy Production</h2>
+
+  <div id="productionChart" class="dashboard-chart-div epoch"></div>
+</section>
+
+<%= javascript_tag defer: 'defer' do %>
+    createDashboardCharts();
+<% end %>

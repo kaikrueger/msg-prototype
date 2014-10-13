@@ -1,6 +1,7 @@
 <div class="logo-div">
   <%= link_to image_tag("logo.png", alt: "mySmartGrid"), 'https://www.mysmartgrid.de' %>
 </div>
+
 <div class="center hero-unit">
   <h1>Herzlich willkommen zu unserem mySmartGrid-Experiment</h1>
 
@@ -9,15 +10,15 @@
   </h2>
 </div>
 
-<div class="illustration-div">
+<div class="demo-illustration-div">
     <%= image_tag("welcome.jpg", alt: "Welcome") %>
 </div>
 
 <section class="chart-container">
 
-  <div id="gauge" class="chart-div"></div>
+  <div id="demoGauge" class="demo-chart-div"></div>
 
-  <div class="chart-description-div">
+  <div class="demo-chart-description-div">
     <h1>Die Idee sieht folgendermaßen aus:</h1>
 
     <p>Sobald Ihr Flukso einen neuen Wert misst, wird dieser an einen unserer
@@ -33,9 +34,9 @@
 
 <section class="chart-container">
 
-  <div id="lineChart" class="chart-div epoch"></div>
+  <div id="demoChart" class="demo-chart-div epoch"></div>
 
-  <div class="chart-description-div">
+  <div class="demo-chart-description-div">
 
     <p>Bisher überträgt Ihr Flukso einmal pro Minute einen Messwert an uns. Bei tausend Fluksos bedeutet dies, dass
       unser Server pro Sekunde knapp 17 Werte verarbeitet. Die Umstellung auf eine Echtzeitangabe bedeutet, dass unser
@@ -52,7 +53,7 @@
 </section>
 
 <%= javascript_tag defer: 'defer' do %>
-    createHomeCharts();
+    createDemoCharts();
 <% end %>
 
 
