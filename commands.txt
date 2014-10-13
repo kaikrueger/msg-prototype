@@ -13,4 +13,6 @@ rails generate migration add_fieldname_to_tablename fieldname:string
 
 rails generate migration add_user_id_to_sensors user_id:integer
 
+rails generate migration remove_unit_id_from_sensors unit_id:integer
 
+rails generate migration remove_sensor_type_id_from_sensors sensor_type_id:integer

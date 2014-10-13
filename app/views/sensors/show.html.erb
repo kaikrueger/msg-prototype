@@ -11,9 +11,9 @@
         <%= @sensor.device.name %>
       </h1>
       <p>
-        <%= image_tag("sensor_type#{@sensor.sensor_type_id}.png", alt: 'Sensor') %>
+        <%= image_tag("sensor_type#{@sensor.sensor_type_unit.sensor_type.id}.png", alt: 'Sensor') %>
 
-        <%= @sensor.sensor_type.name %>
+        <%= @sensor.sensor_type_unit.sensor_type.name %>
       </p>
       <h1>
         <%= @sensor.name %>
@@ -29,7 +29,7 @@
         <b>Updated:</b> <%= @sensor.updated_at %>
       </p>
       <p>
-        <b>Unit:</b> <%= @sensor.unit.name %>
+        <b>Unit:</b> <%= @sensor.sensor_type_unit.unit.name %>
       </p>
       <p>
         <b>Min Value:</b> <%= @sensor.min_value %>
