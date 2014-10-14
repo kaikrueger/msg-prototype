@@ -21,6 +21,8 @@ set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/modules")
 
 #include ( CompilerFlags )
 find_package(OpenSSL)
+#find_package(GnuTLS)
+
 
 set (WEBSOCKETPP_PLATFORM_LIBS pthread rt)
 set (WEBSOCKETPP_PLATFORM_TSL_LIBS ssl crypto)

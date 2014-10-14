@@ -1,35 +1,6 @@
 #include <iostream>
-#include "websocket-rails-client/websocket_rails.hpp"
+#include <websocket-rails-client/msgwebsocket.hpp>
 
-void on_open(jsonxx::Object data) {
-
-    std::cout << "Function on_open called" << std::endl;
-    std::cout << data.json() << std::endl;
-}
-
-void on_close(jsonxx::Object data) {
-
-    std::cout << "Function on_close called" << std::endl;
-    std::cout << data.json() << std::endl;
-}
-
-void on_fail(jsonxx::Object data) {
-
-    std::cout << "Function on_fail called" << std::endl;
-    std::cout << data.json() << std::endl;
-}
-
-void post_success(jsonxx::Object data) {
-
-    std::cout << "Function post_success called" << std::endl;
-    std::cout << data.json() << std::endl;
-}
-
-void post_failure(jsonxx::Object data) {
-
-    std::cout << "Function post_failure called" << std::endl;
-    std::cout << data.json() << std::endl;
-}
 
 int main(int argc, const char* argv[]) {
 
@@ -39,24 +10,34 @@ int main(int argc, const char* argv[]) {
         return -1;
     }
 
-    std::ostringstream os;
-    os << "{\"sensor_uuid\": \"" << argv[1] << "\", \"timestamp\": " << argv[2] << ", \"value\": " << argv[3] << "}";
 
-    jsonxx::Object measurement;
-    measurement.parse(os.str());
+    msgwebsocket dispatcher("wss://dev4-playground.mysmartgrid.de/websocket");
 
-    WebsocketRails dispatcher("wss://dev4-playground.mysmartgrid.de/websocket");
-    dispatcher.onOpen(boost::bind(on_open, _1));
-    dispatcher.onClose(boost::bind(on_close, _1));
-    dispatcher.onFail(boost::bind(on_fail, _1));
+    // main loop
+		do {
+			// create a value
+			float value = random() % 500;
+			
+			// get timestamp
+			time_t timestamp;
+			time(&timestamp);
+			
+			std::ostringstream os;
+			os << "{\"sensor_uuid\": \"" << argv[1] << "\", \"timestamp\": " << timestamp << ", \"value\": " << value << "}";
 
-    dispatcher.connect();
+			try {
+				dispatcher.send_measurement(os.str());
+      //jsonxx::Object measurement;
+			//measurement.parse(os.str());
+			//		Event post = dispatcher.trigger("measurements.post", measurement, boost::bind(post_success, _1), boost::bind(post_failure, _1));
 
-    Event post = dispatcher.trigger("measurements.post", measurement, boost::bind(post_success, _1), boost::bind(post_failure, _1));
-
-    /* Wait */
-    char c;
-    std::cin >> c;
-
-    dispatcher.disconnect();
+				usleep(1000000);
+			} catch( std::exception &e) {
+					std::cout<< "Got en exception: " << e.what()<< std::endl;
+					
+				}
+				
+		} while(1);
+		
+//    dispatcher.disconnect();
 }
