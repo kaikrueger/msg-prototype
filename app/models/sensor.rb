@@ -31,6 +31,17 @@ class Sensor < ActiveRecord::Base
     end
   end
 
+  def get_all_measurements!
+
+    #FIXME: improve this method
+    measurements = {}
+    for key in $redis.smembers redis_measurements_key
+      timestamp = key.split(':').last
+      measurements[timestamp] = $redis.get key
+    end
+    measurements
+  end
+
   def redis_measurements_key
     "sensor:#{self.id}:measurements"
   end

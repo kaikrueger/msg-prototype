@@ -14,5 +14,5 @@
 </li>
 
 <%= javascript_tag defer: 'defer' do %>
-    createSensorGauge("<%= sensor.uuid %>", "<%= sensor.sensor_type_unit.unit.symbol %>", <%= sensor.min_value %>, <%= sensor.max_value %>);
+    createSensorGauge("<%= sensor.uuid %>", "gauge<%= sensor.uuid %>", null, "<%= sensor.sensor_type_unit.unit.symbol %>", <%= sensor.min_value %>, <%= sensor.max_value %>);
 <% end %>

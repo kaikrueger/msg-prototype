@@ -18,5 +18,6 @@ WebsocketRails::EventMap.describe do
 
   namespace :measurements do
     subscribe :post, :to => MeasurementsController, :with_method => :post_measurement
+    subscribe :load, :to => MeasurementsController, :with_method => :load_measurements
   end
 end
