@@ -74,7 +74,10 @@ void WebsocketConnection::run() {
   this->ws_hdl = conn_ptr->get_handle();
   this->ws_client.connect(conn_ptr);
   websocketpp::lib::thread asio_thread(&client::run, &this->ws_client);
-  asio_thread.join();
+	asio_thread.join();
+	// modify the state of the dispatcher
+	// set it to disconnected
+	dispatcher->setState("disconnected");
 }
 
 
@@ -161,6 +164,7 @@ void WebsocketConnection::failHandler(websocketpp::connection_hdl hdl) {
       cb_func callback = this->dispatcher->getOnFailCallback();
       callback(jsonxx::Object("connection_id", this->connection_id));
     }
+		ws_client.stop();
   }
 }
 

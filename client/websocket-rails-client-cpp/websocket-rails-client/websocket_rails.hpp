@@ -32,6 +32,7 @@
 
 class WebsocketRails {
 public:
+	typedef websocketpp::lib::shared_ptr<WebsocketRails> Ptr;
 
   /**
    *  Connection Return Type
@@ -57,6 +58,7 @@ public:
   std::string setState(std::string state);
   WebsocketConnection * getConn();
   bool isConnected();
+  bool isDisconnected();
 
   /**
    *  Connection callbacks
