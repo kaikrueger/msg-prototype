@@ -1,4 +1,3 @@
-
 function date2string(date) {
     var hr = date.getHours();
     var min = date.getMinutes();
@@ -81,10 +80,8 @@ function createSensorGauge(sensorId, chartId, title, unit, min, max) {
 
     var onLoad = function (measurements) {
 
-        //FIXME: Take only the last one
-        for (var timestamp in measurements) {
-            gauge.refresh(Number(measurements[timestamp]).toFixed(1));
-        }
+        var timestamp = d3.max(d3.keys(measurements));
+        gauge.refresh(Number(measurements[timestamp]).toFixed(1));
     };
 
     var onUpdate = function (measurement) {
@@ -100,16 +97,20 @@ function createSensorLineChart(sensorId, chartId) {
 
     var onLoad = function (measurements) {
 
+        var values = [];
         for (var timestamp in measurements) {
-
-            //FIXME: Call this method only once
-            chart.push([
-                {
-                    time: timestamp,
-                    y: parseFloat(measurements[timestamp])
-                }
-            ]);
+            values.push({
+                time: timestamp,
+                y: parseFloat(measurements[timestamp])
+            });
         }
+
+        chart.update({
+            data: {
+                label: 'Frequency',
+                values: values
+            }
+        });
     };
 
     var onUpdate = function (measurement) {
