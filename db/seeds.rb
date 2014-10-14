@@ -1,3 +1,5 @@
+#encoding: utf-8
+
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
@@ -14,7 +16,7 @@ device3 = Device.create(uuid: 'd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3', name: 'Office 
 device4 = Device.create(uuid: 'd4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4', name: 'All Devices', user_id: user.id, device_type_id: device_type3.id)
 
 unit1 = Unit.create(symbol: 'W', name: 'Watt')
-unit2 = Unit.create(symbol: 'C', name: 'Celsius')
+unit2 = Unit.create(symbol: '°C', name: 'Celsius')
 
 sensor_type1 = SensorType.create(name: 'Energy Consumption')
 sensor_type2 = SensorType.create(name: 'Energy Production')
