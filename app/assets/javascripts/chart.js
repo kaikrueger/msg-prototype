@@ -30,14 +30,14 @@ function createGauge(id, name, unit, min, max) {
     });
 }
 
-function createLineChart(id) {
+function createLineChart(id, windowSize) {
 
     return $('#' + id).epoch({
         type: 'time.line',
-        label: "Frequency",
+        label: "Series",
         data: [
             {
-                label: 'Frequency',
+                label: 'Series',
                 values: [
                     {time: getNowTimestamp(), y: 0.0}
                 ]
@@ -50,13 +50,13 @@ function createLineChart(id) {
             }
         },
         axes: ['left', 'bottom', 'right'],
-        windowSize: 100,
-        historySize: 20,
-        queueSize: 60
+        windowSize: windowSize,
+        historySize: windowSize,
+        queueSize: windowSize
     });
 }
 
-function createDispatcher(id, onLoad, onUpdate) {
+function createDispatcher(id, onLoad, onUpdate, windowSize) {
 
     if (window["WebSocket"]) {
 
@@ -67,7 +67,13 @@ function createDispatcher(id, onLoad, onUpdate) {
         channel.bind('create', onUpdate);
         channel.bind('update', onUpdate);
 
-        dispatcher.trigger('measurements.load', {sensor_uuid: id});
+        var now = getNowTimestamp();
+
+        dispatcher.trigger('measurements.load', {
+            sensor_uuid: id,
+            from: now - windowSize,
+            to: now
+        });
 
     } else {
         alert("Your Browser does not support WebSocket.");
@@ -88,7 +94,7 @@ function createSensorGauge(sensorId, chartId, title, unit, min, max) {
         gauge.refresh(Number(measurement.value).toFixed(1));
     };
 
-    createDispatcher(sensorId, onLoad, onUpdate);
+    createDispatcher(sensorId, onLoad, onUpdate, 60);
 }
 
 function createSensorLineChart(sensorId, chartId) {
@@ -122,7 +128,7 @@ function createSensorLineChart(sensorId, chartId) {
         ]);
     };
 
-    createDispatcher(sensorId, onLoad, onUpdate);
+    createDispatcher(sensorId, onLoad, onUpdate, 60 * 60);
 }
 
 function createDashboardCharts() {

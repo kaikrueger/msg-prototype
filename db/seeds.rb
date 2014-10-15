@@ -39,25 +39,21 @@ sensor7 = Sensor.create(uuid: 'd4d4d4d4d4d4d4d4s1s1s1s1s1s1s1s1', sensor_type_un
 sensor8 = Sensor.create(uuid: 'd4d4d4d4d4d4d4d4s2s2s2s2s2s2s2s2', sensor_type_unit_id: sensor_type_unit2.id, name: 'Total Production', device_id: device4.id, min_value: 0, max_value: 10000)
 
 
-timestamp = Time.now.to_i
-minutes = 60
-watt = 100
-celsius = 15
+now = Time.now.to_i
+timestamp = now - (60 * 60) #1 hour
+random = Random.new
 
-while minutes > 0
-  timestamp = timestamp - minutes
+while timestamp <= now
 
-  sensor1.add_measurement! timestamp, watt
-  sensor2.add_measurement! timestamp, watt
-  sensor3.add_measurement! timestamp, watt
-  sensor4.add_measurement! timestamp, watt
-  sensor5.add_measurement! timestamp, celsius
-  sensor6.add_measurement! timestamp, watt
+  sensor1.add_measurement! timestamp, random.rand(100...300)
+  sensor2.add_measurement! timestamp, random.rand(100...300)
+  sensor3.add_measurement! timestamp, random.rand(100...300)
+  sensor4.add_measurement! timestamp, random.rand(100...300)
+  sensor5.add_measurement! timestamp, random.rand(10...40)
+  sensor6.add_measurement! timestamp, random.rand(100...300)
 
-  sensor7.add_measurement! timestamp, watt * 3
-  sensor8.add_measurement! timestamp, watt * 2
+  sensor7.add_measurement! timestamp, random.rand(100...300) * 3
+  sensor8.add_measurement! timestamp, random.rand(100...300) * 2
 
-  minutes -= 1
-  watt += 10
-  celsius += 0.2
+  timestamp += 1
 end
