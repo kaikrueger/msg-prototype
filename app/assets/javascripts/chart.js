@@ -86,14 +86,20 @@ function createSensorGauge(sensorId, chartId, title, unit, min, max) {
 
     var onLoad = function (measurements) {
 
-        if (measurements.length > 0) {
-            var timestamp = d3.max(d3.keys(measurements));
-            gauge.refresh(Number(measurements[timestamp]).toFixed(1));
+        var timestamp = d3.max(d3.keys(measurements));
+        if (timestamp) {
+            var value = Number(measurements[timestamp]);
+            if (!value.isNaN) {
+                gauge.refresh(value.toFixed(1));
+            }
         }
     };
 
     var onUpdate = function (measurement) {
-        gauge.refresh(Number(measurement.value).toFixed(1));
+        var value = Number(measurement.value);
+        if (!value.isNaN) {
+            gauge.refresh(value.toFixed(1));
+        }
     };
 
     createDispatcher(sensorId, onLoad, onUpdate, 60 * 60);
