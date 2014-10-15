@@ -86,8 +86,10 @@ function createSensorGauge(sensorId, chartId, title, unit, min, max) {
 
     var onLoad = function (measurements) {
 
-        var timestamp = d3.max(d3.keys(measurements));
-        gauge.refresh(Number(measurements[timestamp]).toFixed(1));
+        if (measurements.length > 0) {
+            var timestamp = d3.max(d3.keys(measurements));
+            gauge.refresh(Number(measurements[timestamp]).toFixed(1));
+        }
     };
 
     var onUpdate = function (measurement) {
