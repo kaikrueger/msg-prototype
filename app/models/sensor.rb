@@ -33,12 +33,25 @@ class Sensor < ActiveRecord::Base
 
   def get_all_measurements!
 
-    #FIXME: improve this method
     measurements = {}
-    for key in $redis.smembers redis_measurements_key
+
+    $redis.smembers(redis_measurements_key).each { |key|
       timestamp = key.split(':').last
       measurements[timestamp] = $redis.get key
-    end
+    }
+    measurements
+  end
+
+  def get_measurements!(from, to)
+
+    measurements = {}
+
+    (from..to).each { |timestamp|
+      value = $redis.get redis_measurement_key(timestamp)
+      if value
+        measurements[timestamp] = value
+      end
+    }
     measurements
   end
 

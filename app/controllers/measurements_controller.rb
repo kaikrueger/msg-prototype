@@ -15,7 +15,7 @@ class MeasurementsController < WebsocketRails::BaseController
   def load_measurements
 
     sensor = Sensor.find_by(uuid: message[:sensor_uuid])
-    measurements = sensor.get_all_measurements!
+    measurements = sensor.get_measurements!(message[:from], message[:to])
 
     channel = sensor_channel_key message[:sensor_uuid]
     WebsocketRails[channel].trigger('load', measurements)
