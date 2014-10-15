@@ -131,12 +131,6 @@ function createSensorLineChart(sensorId, chartId) {
     createDispatcher(sensorId, onLoad, onUpdate, 60 * 60);
 }
 
-function createDashboardCharts() {
-
-    createSensorLineChart("d4d4d4d4d4d4d4d4s1s1s1s1s1s1s1s1", "consumptionChart");
-    createSensorLineChart("d4d4d4d4d4d4d4d4s2s2s2s2s2s2s2s2", "productionChart");
-}
-
 function createDemoCharts() {
 
     var sensorId = "d1d1d1d1d1d1d1d1s1s1s1s1s1s1s1s1";

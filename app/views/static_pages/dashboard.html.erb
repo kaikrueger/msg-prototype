@@ -13,6 +13,18 @@
   <div id="productionChart" class="dashboard-chart-div epoch"></div>
 </section>
 
+<%
+   consumptionSensor = get_aggregate_sensor('Energy Consumption')
+   productionSensor = get_aggregate_sensor('Energy Production')
+%>
+
 <%= javascript_tag defer: 'defer' do %>
-    createDashboardCharts();
+
+    <% if consumptionSensor %>
+        createSensorLineChart("<%= consumptionSensor.uuid %>", "consumptionChart");
+    <% end %>
+
+    <% if productionSensor %>
+        createSensorLineChart("<%= productionSensor.uuid %>", "productionChart");
+    <% end %>
 <% end %>
