@@ -14,17 +14,17 @@
 </section>
 
 <%
-   consumptionSensor = get_aggregate_sensor('Energy Consumption')
-   productionSensor = get_aggregate_sensor('Energy Production')
+   consumption_sensor = get_aggregate_sensor('Energy Consumption')
+   production_sensor = get_aggregate_sensor('Energy Production')
 %>
 
 <%= javascript_tag defer: 'defer' do %>
 
-    <% if consumptionSensor %>
-        createSensorLineChart("<%= consumptionSensor.uuid %>", "consumptionChart");
+    <% if consumption_sensor %>
+        createSensorLineChart("<%= consumption_sensor.uuid %>", "consumptionChart");
     <% end %>
 
-    <% if productionSensor %>
-        createSensorLineChart("<%= productionSensor.uuid %>", "productionChart");
+    <% if production_sensor %>
+        createSensorLineChart("<%= production_sensor.uuid %>", "productionChart");
     <% end %>
 <% end %>
