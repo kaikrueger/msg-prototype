@@ -39,6 +39,8 @@ sensor7 = Sensor.create(uuid: 'd4d4d4d4d4d4d4d4s1s1s1s1s1s1s1s1', sensor_type_un
 sensor8 = Sensor.create(uuid: 'd4d4d4d4d4d4d4d4s2s2s2s2s2s2s2s2', sensor_type_unit_id: sensor_type_unit2.id, name: 'Total Production', device_id: device4.id, min_value: 0, max_value: 10000)
 
 
+$redis.flushall
+
 now = Time.now.to_i
 timestamp = now - (60 * 60) #1 hour
 random = Random.new

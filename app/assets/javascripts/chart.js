@@ -94,7 +94,7 @@ function createSensorGauge(sensorId, chartId, title, unit, min, max) {
         gauge.refresh(Number(measurement.value).toFixed(1));
     };
 
-    createDispatcher(sensorId, onLoad, onUpdate, 60);
+    createDispatcher(sensorId, onLoad, onUpdate, 60 * 60);
 }
 
 function createSensorLineChart(sensorId, chartId) {
