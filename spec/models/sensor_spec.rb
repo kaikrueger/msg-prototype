@@ -7,9 +7,9 @@ describe Sensor do
   let(:sensor_type) { SensorType.create(name: 'Test') }
   let(:unit) { Unit.create(name: 'Test', symbol: 'T') }
   let(:sensor_type_unit) { SensorTypeUnit.create(sensor_type_id: sensor_type.id, unit_id: unit.id) }
-  let(:device) { Device.create(uuid: '12345678901234567890123456789999', name: 'Device 123', device_type_id: device_type.id, user_id: user.id) }
+  let(:device) { Device.create(uuid: '12345678901234567890123459999999', name: 'Device 123', device_type_id: device_type.id, user_id: user.id) }
   before {
-    @sensor = device.sensors.build(uuid: '12345678901234567890123456789999', name: 'Sensor 123', sensor_type_unit_id: sensor_type_unit.id, min_value: 0, max_value: 1000)
+    @sensor = device.sensors.build(uuid: '12345678901234567890123459999999', name: 'Sensor 123', sensor_type_unit_id: sensor_type_unit.id, min_value: 0, max_value: 1000)
     @sensor.add_measurement! 1413278101, 100
     @sensor.add_measurement! 1413278102, 200
     @sensor.add_measurement! 1413278103, 300
@@ -53,6 +53,14 @@ describe Sensor do
     it { should eq 6 }
   end
 
+  describe 'get measurement' do
+    before {
+      @value = @sensor.get_measurement! 1413278102
+    }
+    subject { @value }
+    it { should eq 200 }
+  end
+
   describe 'get existent measurements' do
     before {
       @measurements = @sensor.get_measurements! 1413278102, 1413278104
@@ -66,6 +74,23 @@ describe Sensor do
       @measurements = @sensor.get_measurements! 1113278102, 1113278104
     }
     subject { @measurements.size }
+    it { should eq 0 }
+  end
+
+  describe 'get dirty timestamps' do
+    before {
+      @timestamps = @sensor.get_dirty_timestamps!
+    }
+    subject { @timestamps.size }
+    it { should eq 6 }
+  end
+
+  describe 'clear dirty timestamps' do
+    before {
+      @sensor.clear_dirty_timestamps!
+      @timestamps = @sensor.get_dirty_timestamps!
+    }
+    subject { @timestamps.size }
     it { should eq 0 }
   end
 end

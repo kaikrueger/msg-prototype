@@ -35,8 +35,9 @@ sensor4 = Sensor.create(uuid: 'd2d2d2d2d2d2d2d2s2s2s2s2s2s2s2s2', sensor_type_un
 sensor5 = Sensor.create(uuid: 'd3d3d3d3d3d3d3d3s1s1s1s1s1s1s1s1', sensor_type_unit_id: sensor_type_unit3.id, name: 'Thermostat', device_id: device3.id, min_value: -40, max_value: 40)
 sensor6 = Sensor.create(uuid: 'd3d3d3d3d3d3d3d3s2s2s2s2s2s2s2s2', sensor_type_unit_id: sensor_type_unit1.id, name: 'Equipment', device_id: device3.id, min_value: 0, max_value: 1000)
 
-sensor7 = Sensor.create(uuid: 'd4d4d4d4d4d4d4d4s1s1s1s1s1s1s1s1', sensor_type_unit_id: sensor_type_unit1.id, name: 'Total Consumption', device_id: device4.id, min_value: 0, max_value: 10000)
-sensor8 = Sensor.create(uuid: 'd4d4d4d4d4d4d4d4s2s2s2s2s2s2s2s2', sensor_type_unit_id: sensor_type_unit2.id, name: 'Total Production', device_id: device4.id, min_value: 0, max_value: 10000)
+#Aggregate
+Sensor.create(uuid: 'd4d4d4d4d4d4d4d4s1s1s1s1s1s1s1s1', sensor_type_unit_id: sensor_type_unit1.id, name: 'Total Consumption', device_id: device4.id, min_value: 0, max_value: 10000)
+Sensor.create(uuid: 'd4d4d4d4d4d4d4d4s2s2s2s2s2s2s2s2', sensor_type_unit_id: sensor_type_unit2.id, name: 'Total Production', device_id: device4.id, min_value: 0, max_value: 10000)
 
 
 $redis.flushall
@@ -54,8 +55,7 @@ while timestamp <= now
   sensor5.add_measurement! timestamp, random.rand(10...40)
   sensor6.add_measurement! timestamp, random.rand(100...300)
 
-  sensor7.add_measurement! timestamp, random.rand(100...300) * 3
-  sensor8.add_measurement! timestamp, random.rand(100...300) * 2
-
   timestamp += 1
 end
+
+Rake::Task['batch:aggregate'].invoke
