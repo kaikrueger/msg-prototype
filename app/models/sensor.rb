@@ -89,6 +89,6 @@ class Sensor < ActiveRecord::Base
   end
 
   def redis_dirty_timestamps_key
-    "sensor:#{self.device_id}:#{self.sensor_type_unit.sensor_type_id}:dirty:timestamps"
+    "sensor:#{self.device.user_id}:#{self.sensor_type_unit.sensor_type_id}:dirty:timestamps"
   end
 end
