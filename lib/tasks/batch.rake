@@ -8,7 +8,7 @@ namespace :batch do
     sensor_types = SensorType.where.not(id: aggregate_type.id)
     sensor_types.each { |sensor_type|
 
-      aggregate_type_units = SensorTypeUnit.where(sensor_type_id: sensor_type.id)
+      aggregate_type_units = SensorTypeUnit.where(sensor_type_id: aggregate_type.id)
       aggregate_type_units.each { |aggregate_type_unit|
 
         aggregate_devices = Device.where(device_type_id: aggregate_type.id)
