@@ -5,46 +5,50 @@ namespace :batch do
 
     aggregate_type = DeviceType.find_by(name: 'Aggregate')
 
-    sensor_types = SensorType.where.not(id: aggregate_type.id)
-    sensor_types.each { |sensor_type|
+    SensorTypeUnit.where(sensor_type_id: aggregate_type.id)
+    .each { |aggregate_type_unit|
 
-      aggregate_type_units = SensorTypeUnit.where(sensor_type_id: aggregate_type.id)
-      aggregate_type_units.each { |aggregate_type_unit|
+      SensorType.where.not(id: aggregate_type.id)
+      .each { |sensor_type|
 
-        aggregate_devices = Device.where(device_type_id: aggregate_type.id)
-        aggregate_devices.each { |aggregate_device|
+        SensorTypeUnit.where(sensor_type_id: sensor_type.id, unit_id: aggregate_type_unit.unit_id)
+        .each { |sensor_type_unit|
 
-          aggregate_sensors = Sensor.where(device_id: aggregate_device.id, sensor_type_unit_id: aggregate_type_unit.id)
-          aggregate_sensors.each { |aggregate_sensor|
+          Device.where(device_type_id: aggregate_type.id)
+          .each { |aggregate_device|
 
-            timestamps = aggregate_sensor.get_dirty_timestamps!
+            Sensor.where(device_id: aggregate_device.id, sensor_type_unit_id: aggregate_type_unit.id)
+            .each { |aggregate_sensor|
 
-            user_devices = Device.where(user_id: aggregate_device.user_id).where.not(id: aggregate_device.id)
-            user_devices.each { |device|
+              timestamps = aggregate_sensor.get_dirty_timestamps!
 
-              sensors = Sensor.where(device_id: device.id)
-              sensors.each { |sensor|
+              Device.where(user_id: aggregate_device.user_id).where.not(id: aggregate_device.id)
+              .each { |device|
 
-                timestamps.each { |timestamp|
+                Sensor.where(device_id: device.id, sensor_type_unit_id: sensor_type_unit.id)
+                .each { |sensor|
 
-                  value = sensor.get_measurement! timestamp
-                  unless value
-                    value = 0
-                  end
+                  timestamps.each { |timestamp|
 
-                  sum = aggregate_sensor.get_measurement! timestamp
-                  unless sum
-                    sum = 0
-                  end
+                    value = sensor.get_measurement! timestamp
+                    unless value
+                      value = 0
+                    end
 
-                  sum += value
+                    sum = aggregate_sensor.get_measurement! timestamp
+                    unless sum
+                      sum = 0
+                    end
 
-                  aggregate_sensor.remove_measurement! timestamp
-                  aggregate_sensor.add_measurement! timestamp, sum
+                    sum += value
+
+                    aggregate_sensor.remove_measurement! timestamp
+                    aggregate_sensor.add_measurement! timestamp, sum
+                  }
                 }
               }
+              aggregate_sensor.clear_dirty_timestamps!
             }
-            aggregate_sensor.clear_dirty_timestamps!
           }
         }
       }
