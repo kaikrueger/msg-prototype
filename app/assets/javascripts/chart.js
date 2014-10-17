@@ -138,11 +138,3 @@ function createSensorLineChart(sensorId, chartId) {
 
     createDispatcher(sensorId, onLoad, onUpdate, 60 * 60);
 }
-
-function createDemoCharts() {
-
-    var sensorId = "d1d1d1d1d1d1d1d1s1s1s1s1s1s1s1s1";
-
-    createSensorGauge(sensorId, "demoGauge", "Kettle", "W", 0, 600);
-    createSensorLineChart(sensorId, "demoChart");
-}
