@@ -3,10 +3,11 @@
 </div>
 
 <div class="center hero-unit">
-  <h1>Herzlich willkommen zu unserem mySmartGrid-Experiment</h1>
+  <h1><%= t('home.title') %></h1>
 
-  <h2>Unser Anliegen ist es Ihnen zu demonstrieren, wie eine Echtzeitanzeige direkt im Browser aussehen könnte.<br>
-    Deshalb möchten wir Sie darauf hinweisen, dass sich hinter dieser Seite momentan noch keine echte Funktionalität verbirgt.
+  <h2>
+    <%= t('home.subtitle.a') %><br>
+    <%= t('home.subtitle.b') %>
   </h2>
 </div>
 
@@ -19,16 +20,10 @@
   <div id="demoGauge" class="demo-chart-div"></div>
 
   <div class="demo-chart-description-div">
-    <h1>Die Idee sieht folgendermaßen aus:</h1>
 
-    <p>Sobald Ihr Flukso einen neuen Wert misst, wird dieser an einen unserer
-    Server übertragen. Der Server wiederum schickt den neuen Messwert direkt an Ihren Browser:
-    Somit wird Ihnen immer der neueste Wert angezeigt. Sobald z.B. der Wasserkocher eingeschaltet wird, können Sie die
-    Veränderungen im Verbrauch direkt sehen (siehe Abbildung links).</p>
-
-    <p>Die Echtzeitanzeige ist fraglos ein sehr schönes Feature. Gleichzeitig
-    bedeutet dies jedoch auch, dass wir sehr viel an unserer Serverstruktur sowie
-    am Flukso ändern müssen, damit wir Ihnen diese Anzeige auch zuverlässig anbieten können.</p>
+    <h1><%= t('home.paragraph.a') %></h1>
+    <p><%= t('home.paragraph.b') %></p>
+    <p><%= t('home.paragraph.c') %></p>
   </div>
 </section>
 
@@ -38,17 +33,9 @@
 
   <div class="demo-chart-description-div">
 
-    <p>Bisher überträgt Ihr Flukso einmal pro Minute einen Messwert an uns. Bei tausend Fluksos bedeutet dies, dass
-      unser Server pro Sekunde knapp 17 Werte verarbeitet. Die Umstellung auf eine Echtzeitangabe bedeutet, dass unser
-      Server 1000 Werte pro Sekunde verarbeiten muss und Ihnen als Besucher der Webseite diese Werte auch kontinuierlich
-      zugänglich macht.</p>
-
-    <p>Dieser Demonstrator ist momentan nur ein Mockup, d.h. es verbirgt sich noch
-      keine echte Funktionalität dahinter. Die Software simuliert lediglich wie Werte an ihren Browser gesendet werden.
-      Wir möchten Ihnen in Zukunft diese Funktion gerne zur Verfügung stellen und arbeiten daran, diese Anzeige
-      fest in mySmartGrid zu integrieren.</p>
-
-    <h1>Wir freuen uns auf Ihr <%= link_to 'Feedback', 'https://www.mysmartgrid.de/node/350' %>.</h1>
+    <p><%= t('home.paragraph.d') %></p>
+    <p><%= t('home.paragraph.e') %></p>
+    <h1><%= t('home.paragraph.f') %> <%= link_to t('link.feedback'), 'https://www.mysmartgrid.de/node/350' %>.</h1>
   </div>
 </section>
 
@@ -56,7 +43,7 @@
 
     var sensorId = "d1d1d1d1d1d1d1d1s1s1s1s1s1s1s1s1";
 
-    createSensorGauge(sensorId, "demoGauge", "Kettle", "W", 0, 600);
+    createSensorGauge(sensorId, "demoGauge", "<%= t('device.kettle') %>", "W", 0, 600);
     createSensorLineChart(sensorId, "demoChart");
 <% end %>
 
