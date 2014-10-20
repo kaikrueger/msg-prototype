@@ -28,4 +28,6 @@ SampleApp::Application.configure do
   config.assets.debug = true
 
   config.middleware.delete Rack::Lock
+
+  config.i18n.default_locale = :en
 end

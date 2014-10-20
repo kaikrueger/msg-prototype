@@ -1,0 +1,34 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+de:
+  home_title: "Herzlich willkommen zu unserem mySmartGrid-Experiment!"
+  home_subtitle1: "Unser Anliegen ist es Ihnen zu demonstrieren, wie eine Echtzeitanzeige direkt im Browser aussehen könnte."
+  home_subtitle2: "Deshalb möchten wir Sie darauf hinweisen, dass sich hinter dieser Seite momentan noch keine echte Funktionalität verbirgt."
+
+  home_title1: "Die Idee sieht folgendermaßen aus:"
+  home_paragraph1: "Sobald Ihr Flukso einen neuen Wert misst, wird dieser an einen unserer Server übertragen. Der Server wiederum schickt den neuen Messwert direkt an Ihren Browser: Somit wird Ihnen immer der neueste Wert angezeigt. Sobald z.B. der Wasserkocher eingeschaltet wird, können Sie die Veränderungen im Verbrauch direkt sehen (siehe Abbildung links)."
+  home_paragraph2: "Die Echtzeitanzeige ist fraglos ein sehr schönes Feature. Gleichzeitig bedeutet dies jedoch auch, dass wir sehr viel an unserer Serverstruktur sowie am Flukso ändern müssen, damit wir Ihnen diese Anzeige auch zuverlässig anbieten können."
+  home_paragraph3: "Bisher überträgt Ihr Flukso einmal pro Minute einen Messwert an uns. Bei tausend Fluksos bedeutet dies, dass unser Server pro Sekunde knapp 17 Werte verarbeitet. Die Umstellung auf eine Echtzeitangabe bedeutet, dass unser Server 1000 Werte pro Sekunde verarbeiten muss und Ihnen als Besucher der Webseite diese Werte auch kontinuierlich zugänglich macht."
+  home_paragraph4: "Dieser Demonstrator ist momentan nur ein Mockup, d.h. es verbirgt sich noch keine echte Funktionalität dahinter. Die Software simuliert lediglich wie Werte an ihren Browser gesendet werden. Wir möchten Ihnen in Zukunft diese Funktion gerne zur Verfügung stellen und arbeiten daran, diese Anzeige fest in mySmartGrid zu integrieren."
+  home_paragraph5: "Wir freuen uns auf Ihr"
+
+  kettle: "Wasserkocher"

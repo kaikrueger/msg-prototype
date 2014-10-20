@@ -20,4 +20,15 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  home_title: "Welcome to the mySmartGrid Playground!"
+  home_subtitle1: "We intend to use this space to give you a preview of the new features being developed for mySmartgrid."
+  home_subtitle2: "We would like to point out that these pages are used only for demonstration purposes. No real functionality is provided yet."
+
+  home_title1: "The idea is as follows:"
+  home_paragraph1: "Your Flukso device will transmit measurements to our servers as soon as they are measured. The server in turn sends the new value directly to your browser, so that it always shows the latest value. For example, when a kettle is switched on, you will see the changes in consumption immediately on the charts (see images on the left)."
+  home_paragraph2: "The real-time display is unquestionably a very nice feature. However, this also means that we have to implement several changes in our servers and Flukso devices, so that we can offer this feature to you in a reliable way."
+  home_paragraph3: "So far, your Flukso transmits one reading per minute to our servers. That means that our server processes 17 readings per second for one thousand Fluksos​​. The transition of real-time measurements would increase this rate to 1000 readings per second."
+  home_paragraph4: "This demonstration is currently only a mockup and has no real functionality behind it. These values are measurements generated in our servers and sent to your browser. We are working to provide this feature in mySmartGrid in the near future."
+  home_paragraph5: "We look forward to your"
+
+  kettle: "Kettle"
