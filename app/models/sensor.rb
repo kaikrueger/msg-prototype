@@ -84,6 +84,10 @@ class Sensor < ActiveRecord::Base
     "sensor:#{self.uuid}:measurements"
   end
 
+  def channel_key
+    "sensor-#{self.uuid}"
+  end
+
   def redis_measurement_key(timestamp)
     "#{self.redis_measurements_key}:#{timestamp}"
   end

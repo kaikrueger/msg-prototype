@@ -17,7 +17,7 @@ class MeasurementsController < WebsocketRails::BaseController
     sensor = Sensor.find_by(uuid: message[:sensor_uuid])
     measurements = sensor.get_measurements!(message[:from], message[:to])
 
-    channel = sensor_channel_key message[:sensor_uuid]
+    channel = sensor.channel_key
     WebsocketRails[channel].trigger('load', measurements)
 
     send_message :load_success, 'load_success', :namespace => :measurements
@@ -25,20 +25,14 @@ class MeasurementsController < WebsocketRails::BaseController
 
   def post_measurement
 
-    measurement = {sensor_uuid: message[:sensor_uuid], timestamp: message[:timestamp], value: message[:value]}
-
-    channel = sensor_channel_key message[:sensor_uuid]
-    WebsocketRails[channel].trigger('create', measurement)
-
     sensor = Sensor.find_by(uuid: message[:sensor_uuid])
     sensor.add_measurement! message[:timestamp], message[:value]
 
+    measurement = {sensor_uuid: sensor.uuid, timestamp: message[:timestamp], value: message[:value]}
+
+    channel = sensor.channel_key
+    WebsocketRails[channel].trigger('create', measurement)
+
     send_message :post_success, 'post_success', :namespace => :measurements
   end
-end
-
-private
-
-def sensor_channel_key(uuid)
-  "sensor-#{uuid}"
 end

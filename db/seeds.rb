@@ -42,11 +42,12 @@ Sensor.create(uuid: 'd4d4d4d4d4d4d4d4s2s2s2s2s2s2s2s2', sensor_type_unit_id: sen
 
 $redis.flushall
 
-now = Time.now.to_i
-timestamp = now - (60 * 60) #1 hour
+hour = 60 * 60
+to = Time.now.to_i
+from = to - hour
 random = Random.new
 
-while timestamp <= now
+(from..to).each { |timestamp|
 
   sensor1.add_measurement! timestamp, random.rand(100...300)
   sensor2.add_measurement! timestamp, random.rand(100...300)
@@ -54,8 +55,4 @@ while timestamp <= now
   sensor4.add_measurement! timestamp, random.rand(100...300)
   sensor5.add_measurement! timestamp, random.rand(10...40)
   sensor6.add_measurement! timestamp, random.rand(100...300)
-
-  timestamp += 1
-end
-
-Rake::Task['batch:aggregate'].invoke
+}
