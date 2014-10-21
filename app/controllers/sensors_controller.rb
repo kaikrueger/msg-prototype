@@ -38,6 +38,7 @@ class SensorsController < ApplicationController
       Sensor.where(device_id: aggregate_device.id).each { |aggregate_sensor|
 
         timestamps = aggregate_sensor.get_dirty_timestamps!
+        measurements = {}
 
         Device.where(user_id: aggregate_device.user_id).where.not(id: aggregate_device.id)
         .each { |device|
@@ -61,14 +62,14 @@ class SensorsController < ApplicationController
 
               aggregate_sensor.remove_measurement! timestamp
               aggregate_sensor.add_measurement! timestamp, sum
-
-              measurement = {sensor_uuid: aggregate_sensor.uuid, timestamp: timestamp, value: sum}
-
-              channel = aggregate_sensor.channel_key
-              WebsocketRails[channel].trigger('create', measurement)
+              measurements[timestamp] = sum
             }
           }
         }
+
+        channel = aggregate_sensor.channel_key
+        WebsocketRails[channel].trigger('load', measurements)
+
         aggregate_sensor.clear_dirty_timestamps!
       }
     }
