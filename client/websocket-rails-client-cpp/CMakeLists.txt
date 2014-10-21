@@ -23,6 +23,8 @@ set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/modules")
 find_package(OpenSSL)
 #find_package(GnuTLS)
 
+set(USE_DEBUG 1)
+configure_file(websocket-rails-client/config.h.in ${CMAKE_BINARY_DIR}/websocket-rails-client/config.h)
 
 set (WEBSOCKETPP_PLATFORM_LIBS pthread rt)
 set (WEBSOCKETPP_PLATFORM_TSL_LIBS ssl crypto)
