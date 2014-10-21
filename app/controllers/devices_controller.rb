@@ -29,6 +29,11 @@ class DevicesController < ApplicationController
     redirect_to devices_url
   end
 
+  def aggregate
+    Device.aggregate
+    redirect_to devices_url
+  end
+
   private
 
   def device_params
