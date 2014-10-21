@@ -36,10 +36,16 @@ WebsocketConnection::WebsocketConnection(std::string url, WebsocketRails & dispa
   this->dispatcher = &dispatcher;
 
   /* Set up access channels to only log interesting things */
+#if defined(USE_DEBUG) && USE_DEBUG
+	std::cout<<"WebsocketConnection in DEBUG mode compiled.\n";
+  this->ws_client.set_access_channels(websocketpp::log::alevel::all);
+  this->ws_client.set_error_channels(websocketpp::log::elevel::all);
+#else
   this->ws_client.clear_access_channels(websocketpp::log::alevel::all);
   this->ws_client.set_access_channels(websocketpp::log::alevel::connect);
   this->ws_client.set_access_channels(websocketpp::log::alevel::disconnect);
   this->ws_client.set_access_channels(websocketpp::log::alevel::app);
+#endif
 
   /* Initialize the Asio transport policy */
   this->ws_client.init_asio();
@@ -175,6 +181,10 @@ void WebsocketConnection::messageHandler(websocketpp::connection_hdl hdl, messag
   std::string tmp = msg->get_payload();
   jsonxx::Array event_data;
   event_data.parse(tmp);
+#if defined(USE_DEBUG) && USE_DEBUG
+	std::cout<<"messageHandler:::" << tmp << std::endl;
+	std::cout<<"messageHandler:::" << event_data.size()<< std::endl;
+#endif
   for(int i = 0, len = event_data.size(); i < len; i++) {
     event_names += event_data.get<jsonxx::Array>(i).get<jsonxx::String>(0) + " ";
   }
@@ -204,6 +214,9 @@ void WebsocketConnection::sendEvent(Event event) {
     event.setConnectionId(this->connection_id);
   }
   websocketpp::lib::error_code ec;
+#if defined(USE_DEBUG) && USE_DEBUG
+	std::cout<<"SendEnvent:" << event.serialize()<< std::endl;
+#endif	
   this->ws_client.send(this->ws_hdl, event.serialize(), websocketpp::frame::opcode::text, ec);
   if(ec) {
     this->ws_client.get_alog().write(websocketpp::log::alevel::app,
