@@ -63,6 +63,18 @@ class Sensor < ActiveRecord::Base
     measurements
   end
 
+  def trigger_load_event!(measurements)
+    WebsocketRails[channel_key].trigger('load', measurements)
+  end
+
+  def trigger_create_event!(measurement)
+    WebsocketRails[channel_key].trigger('create', measurement)
+  end
+
+  def channel_key
+    "sensor-#{self.uuid}"
+  end
+
   def get_dirty_timestamps!
 
     timestamps = $redis.smembers self.redis_dirty_timestamps_key
@@ -82,10 +94,6 @@ class Sensor < ActiveRecord::Base
 
   def redis_measurements_key
     "sensor:#{self.uuid}:measurements"
-  end
-
-  def channel_key
-    "sensor-#{self.uuid}"
   end
 
   def redis_measurement_key(timestamp)
