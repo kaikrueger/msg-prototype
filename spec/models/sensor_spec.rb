@@ -53,12 +53,20 @@ describe Sensor do
     it { should eq 6 }
   end
 
-  describe 'get measurement' do
+  describe 'get existent measurement' do
     before {
       @value = @sensor.get_measurement! 1413278102
     }
     subject { @value }
     it { should eq 200 }
+  end
+
+  describe 'get non existent measurement' do
+    before {
+      @value = @sensor.get_measurement! 999999
+    }
+    subject { @value }
+    it { should eq 0 }
   end
 
   describe 'get existent measurements' do
