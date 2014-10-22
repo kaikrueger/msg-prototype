@@ -7,15 +7,23 @@ describe Sensor do
   let(:sensor_type) { SensorType.create(name: 'Test') }
   let(:unit) { Unit.create(name: 'Test', symbol: 'T') }
   let(:sensor_type_unit) { SensorTypeUnit.create(sensor_type_id: sensor_type.id, unit_id: unit.id) }
-  let(:device) { Device.create(uuid: '12345678901234567890123459999999', name: 'Device 123', device_type_id: device_type.id, user_id: user.id) }
+  let(:device) { Device.create(uuid: '56789034123789099999124123456599', name: 'Device 1', device_type_id: device_type.id, user_id: user.id) }
   before {
-    @sensor = device.sensors.build(uuid: '12345678901234567890123459999999', name: 'Sensor 123', sensor_type_unit_id: sensor_type_unit.id, min_value: 0, max_value: 1000)
-    @sensor.add_measurement! 1413278101, 100
-    @sensor.add_measurement! 1413278102, 200
-    @sensor.add_measurement! 1413278103, 300
-    @sensor.add_measurement! 1413278104, 400
-    @sensor.add_measurement! 1413278105, 500
-    @sensor.add_measurement! 1413278106, 600
+    @sensor = device.sensors.build(uuid: '78901299923451231745609934568999', name: 'Sensor 1', sensor_type_unit_id: sensor_type_unit.id, min_value: 0, max_value: 1000)
+    @sensor.add_measurement! 1313278101, 100
+    @sensor.add_measurement! 1313278102, 200
+    @sensor.add_measurement! 1313278103, 300
+    @sensor.add_measurement! 1313278104, 400
+    @sensor.add_measurement! 1313278105, 500
+    @sensor.add_measurement! 1313278106, 600
+
+    @other_sensor = device.sensors.build(uuid: '67856099345892990191723451234999', name: 'Sensor 2', sensor_type_unit_id: sensor_type_unit.id, min_value: 0, max_value: 1000)
+    @other_sensor.add_measurement! 1313278101, 100
+    @other_sensor.add_measurement! 1313278102, 200
+    @other_sensor.add_measurement! 1313278103, 300
+    @other_sensor.add_measurement! 1313278104, 400
+    @other_sensor.add_measurement! 1313278105, 500
+    @other_sensor.add_measurement! 1313278106, 600
   }
 
   subject { @sensor }
@@ -55,7 +63,7 @@ describe Sensor do
 
   describe 'get existent measurement' do
     before {
-      @value = @sensor.get_measurement! 1413278102
+      @value = @sensor.get_measurement! 1313278102
     }
     subject { @value }
     it { should eq 200 }
@@ -71,7 +79,7 @@ describe Sensor do
 
   describe 'get existent measurements' do
     before {
-      @measurements = @sensor.get_measurements! 1413278102, 1413278104
+      @measurements = @sensor.get_measurements! 1313278102, 1313278104
     }
     subject { @measurements.size }
     it { should eq 3 }
