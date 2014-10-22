@@ -56,3 +56,5 @@ random = Random.new
   sensor5.add_measurement! timestamp, random.rand(10...40)
   sensor6.add_measurement! timestamp, random.rand(100...300)
 }
+
+Device.aggregate

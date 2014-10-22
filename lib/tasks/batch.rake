@@ -5,8 +5,14 @@ namespace :batch do
 
   task aggregate: :environment do
 
+    puts 'Aggregating sensors...'
+
     uri = URI('http://localhost:3000/aggregate')
-    req = Net::HTTP.get(uri)
-    puts req
+
+    if Net::HTTP.get(uri)
+      puts 'Successfully Completed.'
+    else
+      puts 'Aggregation Failed.'
+    end
   end
 end
