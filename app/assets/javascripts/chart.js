@@ -62,7 +62,7 @@ function createDispatcher(id, onLoad, onUpdate, windowSize) {
 
         var dispatcher = new WebSocketRails(window.location.host + '/websocket');
 
-        var channel = dispatcher.subscribe('sensor-' + id);
+        var channel = dispatcher.subscribe('sensor:' + id);
         channel.bind('load', onLoad);
         channel.bind('create', onUpdate);
         channel.bind('update', onUpdate);

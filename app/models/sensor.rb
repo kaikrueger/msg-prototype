@@ -72,7 +72,7 @@ class Sensor < ActiveRecord::Base
   end
 
   def channel_key
-    "sensor-#{self.uuid}"
+    "sensor:#{self.uuid}"
   end
 
   def get_dirty_timestamps!
@@ -93,7 +93,7 @@ class Sensor < ActiveRecord::Base
   end
 
   def redis_measurements_key
-    "sensor:#{self.uuid}:measurements"
+    "#{self.channel_key}:measurements"
   end
 
   def redis_measurement_key(timestamp)
