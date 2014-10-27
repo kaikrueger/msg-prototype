@@ -29,7 +29,20 @@
           <% else %>
               <li><%= link_to t('link.home'), root_path %></li>
               <li><%= link_to t('title.signin'), signin_path %></li>
-          <% end %>
+              <li id="fat-menu" class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <%= t('link.language') %> <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/?locale=en">
+                    <%= image_tag('en-flag.png', alt: t('label.language.english')) %>&nbsp;&nbsp;
+                    <%= t('label.language.english') %></a></li>
+                  <li><a href="/?locale=de">
+                    <%= image_tag('de-flag.png', alt: t('label.language.deutsch')) %>&nbsp;&nbsp;
+                    <%= t('label.language.deutsch') %></a></li>
+                </ul>
+              </li>
+        <% end %>
           <li><%= link_to t('title.help'), help_path %></li>
         </ul>
       </nav>

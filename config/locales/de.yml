@@ -50,6 +50,7 @@ de:
     faq: "FAQ"
     forum: "Forum"
     itwm: "Fraunhofer Institut ITWM"
+    language: "Sprache"
 
   message:
     confirm: "Sind Sie sicher?"
@@ -86,6 +87,9 @@ de:
   label:
     and: "und"
     confirmation: "Bestätigung"
+    language:
+      english: "English"
+      deutsch: "Deutsch"
 
   caption:
     save: "Speichern"
