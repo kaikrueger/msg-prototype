@@ -3,22 +3,26 @@
   <aside class="span4">
     <section>
       <p>
-        <%= image_tag("device_type#{@device.device_type_id}.png", alt: 'Device') %>
+        <%= image_tag("device_type#{@device.device_type_id}.png", alt: t('title.device.single')) %>
 
         <%= @device.device_type.name %>
       </p>
+
       <h1>
         <%= @device.name %>
       </h1>
+
       <p>
         <br>
-        <b>UUID:</b> <%= @device.uuid %>
+        <b><%= t('label.uuid') %>:</b> <%= @device.uuid %>
       </p>
+
       <p>
-        <b>Created:</b> <%= @device.created_at %>
+        <b><%= t('label.created') %>:</b> <%= @device.created_at %>
       </p>
+
       <p>
-        <b>Updated:</b> <%= @device.updated_at %>
+        <b><%= t('label.updated') %>:</b> <%= @device.updated_at %>
       </p>
     </section>
   </aside>

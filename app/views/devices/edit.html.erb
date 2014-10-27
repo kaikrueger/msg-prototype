@@ -1,5 +1,5 @@
-<% provide(:title, 'Edit device') %>
-<h1>Update your device</h1>
+<% provide(:title, t('title.device.update')) %>
+<h1><%= t('title.device.update') %></h1>
 
 <div class="row">
   <div class="span6 offset3">
@@ -8,7 +8,7 @@
         <%= f.label :name %>
         <%= f.text_field :name %>
 
-        <%= f.submit 'Save changes', class: "btn btn-large btn-primary" %>
+        <%= f.submit t('caption.save'), class: "btn btn-large btn-primary" %>
     <% end %>
   </div>
 </div>

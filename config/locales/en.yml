@@ -37,4 +37,77 @@ en:
     kettle: "Kettle"
 
   link:
+    home: "Home"
+    signout: "Sign out"
+    email: "Email"
+    signup: "New User? Sign up now!"
     feedback: "Feedback"
+    details: "details"
+    edit: "edit"
+    delete: "delete"
+    change: "change"
+    old_contact: "mySmartGrid contact page"
+    faq: "FAQ"
+    forum: "forum"
+    itwm: "Fraunhofer Institute ITWM"
+
+  message:
+    confirm: "Are you sure?"
+    you_have: "You have"
+    active_devices: "active devices"
+    contact_us: "Contact us at the"
+    get_help: "To get help on this application, please visit our"
+    about: "mySmartGrid is the smart device control for your home. It enables you to understand your energy consumption and share your experiences with others."
+    saving:
+      prohibited: "prohibited this record from being saved:"
+
+  title:
+    signin: "Sign in"
+    signup: "Sign up"
+    dashboard: "Dashboard"
+    account: "Account"
+    about: "About Us"
+    help: "Help"
+    profile: "Profile"
+    settings: "Settings"
+    contact: "Contact"
+    user:
+      single: "User"
+      all: "Users"
+      update: "User Update"
+    device:
+      single: "Device"
+      all: "Devices"
+      update: "Device Update"
+    sensor:
+      single: "Sensor"
+      update: "Sensor Update"
+
+  label:
+    and: "and"
+    confirmation: "Confirmation"
+
+  caption:
+    save: "Save Changes"
+    create_account: "Create my account"
+
+  helpers:
+    label:
+      user:
+        email: "Email"
+        password: "Password"
+        member_since: "Member Since"
+      session:
+        email: "Email"
+        password: "Password"
+      device:
+        name: 'Name'
+      sensor:
+        uuid: "UUID"
+        name: 'Name'
+        created: "Created"
+        updated: "Updated"
+        sensor_type: 'Sensor Type'
+        unit: "Unit"
+        min_value: "Min Value"
+        max_value: "Max Value"

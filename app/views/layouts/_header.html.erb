@@ -5,32 +5,32 @@
         <ul class="nav pull-right">
           <% if signed_in? %>
 
-              <li><%= link_to 'Dashboard', dashboard_path %></li>
+              <li><%= link_to t('title.dashboard'), dashboard_path %></li>
 
               <% if current_user.admin? %>
-                <li><%= link_to 'Users', users_path %></li>
+                  <li><%= link_to t('title.user.all'), users_path %></li>
               <% end %>
 
-              <li><%= link_to 'Devices', devices_path %></li>
+              <li><%= link_to t('title.device.all'), devices_path %></li>
 
               <li id="fat-menu" class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  Account <b class="caret"></b>
+                  <%= t('title.account') %> <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">
-                  <li><%= link_to 'Profile', current_user %></li>
-                  <li><%= link_to 'Settings', edit_user_path(current_user) %></li>
+                  <li><%= link_to t('title.profile'), current_user %></li>
+                  <li><%= link_to t('title.settings'), edit_user_path(current_user) %></li>
                   <li class="divider"></li>
                   <li>
-                    <%= link_to 'Sign out', signout_path, method: 'delete' %>
+                    <%= link_to t('link.signout'), signout_path, method: 'delete' %>
                   </li>
                 </ul>
               </li>
           <% else %>
-              <li><%= link_to 'Home', root_path %></li>
-              <li><%= link_to 'Sign in', signin_path %></li>
+              <li><%= link_to t('link.home'), root_path %></li>
+              <li><%= link_to t('title.signin'), signin_path %></li>
           <% end %>
-          <li><%= link_to "Help", help_path %></li>
+          <li><%= link_to t('title.help'), help_path %></li>
         </ul>
       </nav>
     </div>
