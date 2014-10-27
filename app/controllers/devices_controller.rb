@@ -15,18 +15,34 @@ class DevicesController < ApplicationController
 
   def update
     @device = Device.find(params[:id])
-    if @device.update_attributes(device_params)
-      flash[:success] = 'Device updated'
-      redirect_to @device
+
+    if DevicePolicy.new(@current_user, @device).update?
+
+      if @device.update_attributes(device_params)
+        flash[:success] = 'Device updated'
+        redirect_to @device
+      else
+        render 'edit'
+      end
+
     else
-      render 'edit'
+      flash[:failure] = 'Not authorized.'
+      redirect_to devices_path
     end
   end
 
   def destroy
-    Device.find(params[:id]).destroy
-    flash[:success] = 'Device deleted.'
-    redirect_to devices_url
+    @device = Device.find(params[:id])
+
+    if DevicePolicy.new(@current_user, @device).destroy?
+      @device.destroy
+      flash[:success] = 'Device deleted.'
+      redirect_to devices_url
+
+    else
+      flash[:failure] = 'Not authorized.'
+      redirect_to devices_path
+    end
   end
 
   def aggregate
