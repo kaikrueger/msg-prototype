@@ -1,16 +1,16 @@
 <li>
   <div style="text-align: right;">
-    <%= link_to 'details', device %> |
-    <%= link_to 'edit', edit_device_path(device) %> |
-    <%= link_to 'delete', device, method: :delete, data: {confirm: 'Are you sure?'} %>
+    <%= link_to t('link.details'), device %> |
+    <%= link_to t('link.edit'), edit_device_path(device) %> |
+    <%= link_to t('link.delete'), device, method: :delete, data: {confirm: t('message.confirm')} %>
   </div>
   <div>
-      <%= image_tag("device_type#{device.device_type_id}.png", alt: 'Device') %>
-      <%= device.name %>
+    <%= image_tag("device_type#{device.device_type_id}.png", alt: 'Device') %>
+    <%= device.name %>
   </div>
   <div>
-      <ul class="sensors">
-          <%= render device.sensors %>
-      </ul>
+    <ul class="sensors">
+      <%= render device.sensors %>
+    </ul>
   </div>
 </li>

@@ -1,7 +1,9 @@
 <% provide(:title, 'Help') %>
-<h1>Help</h1>
+<h1><%= t('title.help') %></h1>
 <p>
-  To get help on this application, please visit our
-  <a href="https://www.mysmartgrid.de/content/h%C3%A4ufige-fragen-und-antworten">FAQ</a> and
-  <a href="https://www.mysmartgrid.de/forum">forum</a>.
+  <%= t('title.help') %>
+
+  <%= t('message.get_help') %>
+  <a href="https://www.mysmartgrid.de/content/h%C3%A4ufige-fragen-und-antworten"><%= t('link.faq') %></a> <%= t('label.and') %>
+  <a href="https://www.mysmartgrid.de/forum"><%= t('link.forum') %></a>.
 </p>

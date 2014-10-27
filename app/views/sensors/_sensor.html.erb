@@ -7,9 +7,9 @@
   <div id="gauge<%= sensor.uuid %>" class="sensor-gauge-div"></div>
 
   <div class="sensor-links-div">
-    <%= link_to 'details', sensor %> |
-    <%= link_to 'edit', edit_sensor_path(sensor) %> |
-    <%= link_to 'delete', sensor, method: :delete, data: {confirm: 'Are you sure?'} %>
+    <%= link_to t('link.details'), sensor %> |
+    <%= link_to t('link.edit'), edit_sensor_path(sensor) %> |
+    <%= link_to t('link.delete'), sensor, method: :delete, data: {confirm: t('message.confirm')} %>
   </div>
 </li>
 

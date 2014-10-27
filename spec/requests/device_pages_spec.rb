@@ -12,8 +12,8 @@ describe 'Device pages' do
       visit devices_path
     end
 
-    it { should have_title('My Devices') }
-    it { should have_content('My Devices') }
+    it { should have_title('Devices') }
+    it { should have_content('Devices') }
 
   end
 
@@ -26,7 +26,7 @@ describe 'Device pages' do
     end
 
     describe 'page' do
-      it { should have_title('Edit device') }
+      it { should have_title('Device Update') }
     end
   end
 end

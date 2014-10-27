@@ -18,17 +18,18 @@ class Device < ActiveRecord::Base
 
         timestamps = aggregate_sensor.get_dirty_timestamps!
 
-        Device.get_aggregated_sensors!(aggregate_sensor).each { |sensor|
-
-          timestamps.each { |timestamp|
-
-            sum = aggregate_sensor.get_measurement!(timestamp) + sensor.get_measurement!(timestamp)
-            aggregate_sensor.add_measurement!(timestamp, sum)
-          }
-        }
-        aggregate_sensor.clear_dirty_timestamps!
-
         unless timestamps.empty?
+
+          Device.get_aggregated_sensors!(aggregate_sensor).each { |sensor|
+
+            timestamps.each { |timestamp|
+
+              sum = aggregate_sensor.get_measurement!(timestamp) + sensor.get_measurement!(timestamp)
+              aggregate_sensor.add_measurement!(timestamp, sum)
+            }
+          }
+          aggregate_sensor.clear_dirty_timestamps!
+
           measurements = aggregate_sensor.get_measurements!(timestamps.min, timestamps.max)
           aggregate_sensor.trigger_load_event! measurements
         end

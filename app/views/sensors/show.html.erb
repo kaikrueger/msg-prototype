@@ -3,39 +3,48 @@
   <aside class="span4">
     <section>
       <p>
-        <%= image_tag("device_type#{@sensor.device.device_type_id}.png", alt: 'Device') %>
+        <%= image_tag("device_type#{@sensor.device.device_type_id}.png", alt: t('title.device.single')) %>
 
         <%= @sensor.device.device_type.name %>
       </p>
+
       <h1>
         <%= @sensor.device.name %>
       </h1>
+
       <p>
-        <%= image_tag("sensor_type#{@sensor.sensor_type_unit.sensor_type.id}.png", alt: 'Sensor') %>
+        <%= image_tag("sensor_type#{@sensor.sensor_type_unit.sensor_type.id}.png", alt: t('title.sensor.single')) %>
 
         <%= @sensor.sensor_type_unit.sensor_type.name %>
       </p>
+
       <h1>
         <%= @sensor.name %>
       </h1>
+
       <p>
         <br>
-        <b>UUID:</b> <%= @sensor.uuid %>
+        <b><%= t('helpers.label.sensor.uuid') %>:</b> <%= @sensor.uuid %>
       </p>
+
       <p>
-        <b>Created:</b> <%= @sensor.created_at %>
+        <b><%= t('helpers.label.sensor.created') %>:</b> <%= @sensor.created_at %>
       </p>
+
       <p>
-        <b>Updated:</b> <%= @sensor.updated_at %>
+        <b><%= t('helpers.label.sensor.updated') %>:</b> <%= @sensor.updated_at %>
       </p>
+
       <p>
-        <b>Unit:</b> <%= @sensor.sensor_type_unit.unit.name %>
+        <b><%= t('helpers.label.sensor.unit') %>:</b> <%= @sensor.sensor_type_unit.unit.name %>
       </p>
+
       <p>
-        <b>Min Value:</b> <%= @sensor.min_value %>
+        <b><%= t('helpers.label.sensor.min_value') %>:</b> <%= @sensor.min_value %>
       </p>
+
       <p>
-        <b>Max Value:</b> <%= @sensor.max_value %>
+        <b><%= t('helpers.label.sensor.max_value') %>:</b> <%= @sensor.max_value %>
       </p>
     </section>
   </aside>

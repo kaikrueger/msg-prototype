@@ -8,11 +8,14 @@
       </h1>
     </section>
     <section>
-      <p><b>Member since:</b> <%= @user.created_at %></p>
-      <p><b>E-mail:</b> <%= @user.email %></p>
+      <p><b><%= t('helpers.label.user.member_since') %>:</b> <%= @user.created_at %></p>
+
+      <p><b><%= t('helpers.label.user.email') %>:</b> <%= @user.email %></p>
     </section>
     <section>
-      <p>You have <%= link_to @user.devices.size, devices_path %> active devices.</p>
+      <p><%= t('message.you_have') %>
+        <%= link_to @user.devices.size, devices_path %>
+        <%= t('message.active_devices') %>.</p>
     </section>
   </aside>
 </div>

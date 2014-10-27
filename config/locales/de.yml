@@ -37,4 +37,81 @@ de:
     kettle: "Wasserkocher"
 
   link:
+    home: "Home"
+    signout: "Austragen"
+    email: "Email"
+    signup: "Neuer Nutzer? Registrieren Sie sich jetzt!"
     feedback: "Feedback"
+    details: "nähere"
+    edit: "bearbeiten"
+    delete: "löschen"
+    change: "ändern"
+    old_contact: "mySmartGrid Kontaktseite"
+    faq: "FAQ"
+    forum: "Forum"
+    itwm: "Fraunhofer Institut ITWM"
+    language: "Sprache"
+
+  message:
+    confirm: "Sind Sie sicher?"
+    you_have: "Sie haben"
+    active_devices: "aktive Geräte"
+    contact_us: "Kontaktieren Sie uns unter der"
+    get_help: "Um Hilfe zu dieser Anwendung zu erhalten, besuchen Sie bitte unsere"
+    about: "mySmartGrid ist die intelligente Gerätesteuerung für Ihr Zuhause. Verstehen Sie Ihren Stromverbrauch und tauschen Sie sich mit anderen aus. Dazu regelt mySmartGrid in Zukunft auch Geräte."
+    saving:
+      prohibited: "verboten diesen Datensatz nicht gespeichert:"
+
+  title:
+    signin: "Anmelden"
+    signup: "Registrieren"
+    dashboard: "Dashboard"
+    account: "Konto"
+    about: "Über uns"
+    help: "Hilfe"
+    profile: "Profile"
+    settings: "Einstellungen"
+    contact: "Kontakt"
+    user:
+      single: "Benutzer"
+      all: "Benutzen"
+      update: "Benutzer-Update"
+    device:
+      single: "Gerät"
+      all: "Geräte"
+      update: "Gerät-Update"
+    sensor:
+      single: "Sensor"
+      update: "Sensor-Update"
+
+  label:
+    and: "und"
+    confirmation: "Bestätigung"
+    language:
+      english: "English"
+      deutsch: "Deutsch"
+
+  caption:
+    save: "Speichern"
+    create_account: "Create my account"
+
+  helpers:
+    label:
+      user:
+        email: "Email"
+        password: "Passwort"
+        member_since: "Mitglied seit"
+      session:
+        email: "Email"
+        password: "Passwort"
+      device:
+        name: 'Name'
+      sensor:
+        uuid: "UUID"
+        name: 'Name'
+        created: "Erstellt"
+        updated: "Aktualisiert"
+        sensor_type: 'Sensor-Typ'
+        unit: "Einheit"
+        min_value: "Minimum-Wert"
+        max_value: "Maximum-Wert"
