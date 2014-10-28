@@ -1,9 +1,5 @@
 class SensorsController < ApplicationController
-  before_action :signed_in_user, only: [:index]
-
-  def index
-    @sensors = Sensor.paginate(page: params[:page])
-  end
+  before_action :signed_in_user, only: [:update, :destroy]
 
   def show
     @sensor = Sensor.find(params[:id])
@@ -15,18 +11,34 @@ class SensorsController < ApplicationController
 
   def update
     @sensor = Sensor.find(params[:id])
-    if @sensor.update_attributes(sensor_params)
-      flash[:success] = 'Sensor updated'
-      redirect_to @sensor
+
+    if SensorPolicy.new(@current_user, @sensor).update?
+
+      if @sensor.update_attributes(sensor_params)
+        flash[:success] = 'Sensor updated'
+        redirect_to @sensor
+      else
+        render 'edit'
+      end
+
     else
-      render 'edit'
+      flash[:failure] = 'Not authorized.'
+      redirect_to devices_path
     end
   end
 
   def destroy
-    Sensor.find(params[:id]).destroy
-    flash[:success] = 'Sensor deleted.'
-    redirect_to sensors_url
+    @sensor = Sensor.find(params[:id])
+
+    if SensorPolicy.new(@current_user, @sensor).destroy?
+      @sensor.destroy
+      flash[:success] = 'Sensor deleted.'
+      redirect_to devices_path
+
+    else
+      flash[:failure] = 'Not authorized.'
+      redirect_to devices_path
+    end
   end
 
   private
