@@ -33,6 +33,8 @@ class WebsocketRails;
 class Channel {
 public:
 
+	typedef websocketpp::lib::shared_ptr<Channel> Ptr;
+
   /**
    *  Constructors
    **/
@@ -43,7 +45,8 @@ public:
   /**
    *  Functions
    **/
-  void destroy();
+  void triggerEvent();
+	void destroy();
   void bind(std::string event_name, cb_func callback);
   Event trigger(std::string event_name, jsonxx::Object event_data);
   std::string getName();

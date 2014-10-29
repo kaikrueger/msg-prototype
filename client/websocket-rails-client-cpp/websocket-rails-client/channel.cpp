@@ -47,8 +47,6 @@ Channel::Channel(std::string name, WebsocketRails & dispatcher, bool is_private,
   this->initObject();
 }
 
-
-
 /************************************
  *  Functions                       *
  ************************************/
@@ -133,6 +131,10 @@ void Channel::dispatch(std::string event_name, jsonxx::Object event_data) {
  *                                                      *
  ********************************************************/
 
+void Channel::triggerEvent() {
+	this->initObject();
+}
+
 void Channel::initObject() {
   std::string event_name;
   if(this->is_private) {
@@ -157,7 +159,7 @@ jsonxx::Array Channel::initEventData(std::string event_name) {
 
 
 void Channel::successLauncher(jsonxx::Object data) {
-  if(this->on_success) {
+	if(this->on_success) {
     this->on_success(data);
   }
 }
