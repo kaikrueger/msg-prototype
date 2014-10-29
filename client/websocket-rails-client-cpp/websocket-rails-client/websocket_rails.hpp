@@ -32,6 +32,7 @@
 
 class WebsocketRails {
 public:
+
 	typedef websocketpp::lib::shared_ptr<WebsocketRails> Ptr;
 
   /**
@@ -39,7 +40,7 @@ public:
    **/
   typedef struct {
     std::string state;
-    std::vector<Channel> channels;
+    std::vector<Channel::Ptr> channels;
   } connection;
 
   /**
@@ -84,10 +85,10 @@ public:
   /**
    *  Channel functions
    **/
-  Channel subscribe(std::string channel_name);
-  Channel subscribe(std::string channel_name, cb_func success_callback, cb_func failure_callback);
-  Channel subscribePrivate(std::string channel_name);
-  Channel subscribePrivate(std::string channel_name, cb_func success_callback, cb_func failure_callback);
+  Channel::Ptr subscribe(std::string channel_name);
+  Channel::Ptr subscribe(std::string channel_name, cb_func success_callback, cb_func failure_callback);
+  Channel::Ptr subscribePrivate(std::string channel_name);
+  Channel::Ptr subscribePrivate(std::string channel_name, cb_func success_callback, cb_func failure_callback);
   void unsubscribe(std::string channel_name);
 
 private:
@@ -102,7 +103,7 @@ private:
   cb_func on_close_callback;
   cb_func on_fail_callback;
   map_vec_cb_func callbacks; 	 																	  /* Map<key,value>: Event Name, Callback Array 		*/
-  std::tr1::unordered_map<std::string, Channel> channels; 				/* Map<key,value>: Channel Name, Channel Object 	*/
+  std::tr1::unordered_map<std::string, Channel::Ptr> channels; 				/* Map<key,value>: Channel Name, Channel Object 	*/
   std::tr1::unordered_map<std::string, Event> queue; 							/* Map<key,value>: Event UUID, Event Object				*/
   WebsocketConnection * conn;
 
@@ -114,7 +115,7 @@ private:
   void dispatchChannel(Event event);
   void pong();
   bool connectionStale();
-  std::vector<Channel> reconnectChannels();
+  std::vector<Channel::Ptr> reconnectChannels();
 
 };
 
