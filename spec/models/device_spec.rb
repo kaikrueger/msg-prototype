@@ -3,14 +3,14 @@ require 'spec_helper'
 describe Device do
 
   let(:user) { FactoryGirl.create(:user) }
-  let(:aggregate_type) { DeviceType.find_by(name: 'Aggregate') }
-  let(:flukso_type) { DeviceType.find_by(name: 'Flukso 2') }
-  let(:raspberry_pi_type) { DeviceType.find_by(name: 'RaspBerry Pi') }
+  let(:aggregate_type) { DeviceType.find_by(name: 'device.type.aggregate') }
+  let(:flukso_type) { DeviceType.find_by(name: 'device.type.flukso2') }
+  let(:raspberry_pi_type) { DeviceType.find_by(name: 'device.type.raspberry_pi') }
   let(:flukso) { Device.create(uuid: '12345678901234567890123456789012', name: 'Device 1', device_type_id: flukso_type.id, user_id: user.id) }
   let(:raspberry_pi) { Device.create(uuid: '12345678990456789012012312345678', name: 'Device 2', device_type_id: raspberry_pi_type.id, user_id: user.id) }
   let(:aggregate_device) { Device.create(uuid: '78989012101234567123456234567890', name: 'Aggregate Device', device_type_id: aggregate_type.id, user_id: user.id) }
 
-  let(:sensor_type) { SensorType.find_by(name: 'Energy Consumption') }
+  let(:sensor_type) { SensorType.find_by(name: 'sensor.type.energy_consumption') }
   let(:watt) { Unit.find_by(symbol: 'W') }
   let(:sensor_type_unit) { SensorTypeUnit.create(sensor_type_id: sensor_type.id, unit_id: watt.id) }
 
@@ -70,7 +70,7 @@ describe Device do
     }
 
     subject { @aggregate_sensors }
-    its(:length) { should eq (1 + 2) }
+    its(:length) { should eq (1 + 2 + 2) }
     it { should include(@aggregate_sensor) }
   end
 

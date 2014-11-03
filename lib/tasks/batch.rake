@@ -1,7 +1,7 @@
 require 'net/http'
 
 namespace :batch do
-  desc 'Batch Tasks'
+  desc 'mySmartGrid Batch Tasks'
 
   task aggregate: :environment do
 

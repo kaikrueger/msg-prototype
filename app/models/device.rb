@@ -16,24 +16,24 @@ class Device < ActiveRecord::Base
 
     Device.get_aggregate_sensors!.each { |aggregate_sensor|
 
-        timestamps = aggregate_sensor.get_dirty_timestamps!
+      timestamps = aggregate_sensor.get_dirty_timestamps!
 
-        unless timestamps.empty?
+      unless timestamps.empty?
 
-          Device.get_aggregated_sensors!(aggregate_sensor).each { |sensor|
+        Device.get_aggregated_sensors!(aggregate_sensor).each { |sensor|
 
-            timestamps.each { |timestamp|
+          timestamps.each { |timestamp|
 
-              sum = aggregate_sensor.get_measurement!(timestamp) + sensor.get_measurement!(timestamp)
-              aggregate_sensor.add_measurement!(timestamp, sum)
-            }
+            sum = aggregate_sensor.get_measurement!(timestamp) + sensor.get_measurement!(timestamp)
+            aggregate_sensor.add_measurement!(timestamp, sum)
           }
-          aggregate_sensor.clear_dirty_timestamps!
+        }
+        aggregate_sensor.clear_dirty_timestamps!
 
-          measurements = aggregate_sensor.get_measurements!(timestamps.min, timestamps.max)
-          aggregate_sensor.trigger_load_event! measurements
-        end
-      }
+        measurements = aggregate_sensor.get_measurements!(timestamps.min, timestamps.max)
+        aggregate_sensor.trigger_load_event! measurements
+      end
+    }
   end
 
   def self.get_aggregated_sensors!(aggregate_sensor)
@@ -53,7 +53,7 @@ class Device < ActiveRecord::Base
   def self.get_aggregate_sensors!
 
     sensors = []
-    aggregate_type = DeviceType.find_by(name: 'Aggregate')
+    aggregate_type = DeviceType.find_by(name: 'device.type.aggregate')
 
     Device.where(device_type_id: aggregate_type.id).each { |device|
 
