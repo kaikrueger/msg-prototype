@@ -35,6 +35,16 @@ de:
 
   device:
     kettle: "Wasserkocher"
+    type:
+      flukso2: "Flukso 2"
+      raspberry_pi: "RaspBerry Pi"
+      aggregate: "Gesamt"
+
+  sensor:
+    type:
+      energy_consumption: "Energieverbrauch"
+      energy_production: "Energieerzeugung"
+      temperature: "Temperatur"
 
   link:
     home: "Home"
@@ -59,8 +69,7 @@ de:
     contact_us: "Kontaktieren Sie uns unter der"
     get_help: "Um Hilfe zu dieser Anwendung zu erhalten, besuchen Sie bitte unsere"
     about: "mySmartGrid ist die intelligente Gerätesteuerung für Ihr Zuhause. Verstehen Sie Ihren Stromverbrauch und tauschen Sie sich mit anderen aus. Dazu regelt mySmartGrid in Zukunft auch Geräte."
-    saving:
-      prohibited: "verboten diesen Datensatz nicht gespeichert:"
+    errors: "Fehler verboten diesen Datensatz nicht gespeichert:"
 
   title:
     signin: "Anmelden"
@@ -105,7 +114,10 @@ de:
         email: "Email"
         password: "Passwort"
       device:
+        uuid: "UUID"
         name: 'Name'
+        created: "Erstellt"
+        updated: "Aktualisiert"
       sensor:
         uuid: "UUID"
         name: 'Name'

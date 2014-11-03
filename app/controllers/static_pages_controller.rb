@@ -20,7 +20,7 @@ class StaticPagesController < ApplicationController
   def get_aggregate_sensor(type_name)
 
     unit = Unit.find_by(symbol: 'W')
-    aggregate_type = DeviceType.find_by(name: 'Aggregate')
+    aggregate_type = DeviceType.find_by(name: 'device.type.aggregate')
     sensor_type = SensorType.find_by(name: type_name)
     sensor_type_unit = SensorTypeUnit.find_by(sensor_type_id: sensor_type.id, unit_id: unit.id)
     device = Device.find_by(device_type_id: aggregate_type.id, user_id: @current_user.id)

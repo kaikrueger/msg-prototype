@@ -1,7 +1,7 @@
 <%= form_for(@device) do |f| %>
     <% if @device.errors.any? %>
         <div id="error_explanation">
-          <h2><%= pluralize(@device.errors.count, 'error') %> <%= t('message.saving.prohibited') %></h2>
+          <h2><%= t('message.errors') %></h2>
 
           <ul>
             <% @device.errors.full_messages.each do |msg| %>

@@ -2,11 +2,9 @@ require 'spec_helper'
 
 describe DeviceType do
 
-  before do
-    @device_type = DeviceType.new(name: 'Test')
-  end
+  let(:type) { DeviceType.find_by(name: 'device.type.flukso2') }
 
-  subject { @device_type }
+  subject { type }
 
   it { should respond_to(:name) }
   it { should respond_to(:devices) }
@@ -14,7 +12,7 @@ describe DeviceType do
   it { should be_valid }
 
   describe 'when name is not present' do
-    before { @device_type.name = ' ' }
+    before { type.name = ' ' }
     it { should_not be_valid }
   end
 

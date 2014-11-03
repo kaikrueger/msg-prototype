@@ -35,6 +35,16 @@ en:
 
   device:
     kettle: "Kettle"
+    type:
+      flukso2: "Flukso 2"
+      raspberry_pi: "RaspBerry Pi"
+      aggregate: "Aggregate"
+
+  sensor:
+    type:
+      energy_consumption: "Energy Consumption"
+      energy_production: "Energy Production"
+      temperature: "Temperature"
 
   link:
     home: "Home"
@@ -59,8 +69,7 @@ en:
     contact_us: "Contact us at the"
     get_help: "To get help on this application, please visit our"
     about: "mySmartGrid is the smart device control for your home. It enables you to understand your energy consumption and share your experiences with others."
-    saving:
-      prohibited: "prohibited this record from being saved:"
+    errors: "Errors prohibited this record from being saved:"
 
   title:
     signin: "Sign in"
@@ -105,7 +114,10 @@ en:
         email: "Email"
         password: "Password"
       device:
+        uuid: "UUID"
         name: 'Name'
+        created: "Created"
+        updated: "Updated"
       sensor:
         uuid: "UUID"
         name: 'Name'

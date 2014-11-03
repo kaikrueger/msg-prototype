@@ -1,11 +1,10 @@
-
-<% sensor = get_aggregate_sensor('Energy Consumption') %>
+<% sensor = get_aggregate_sensor('sensor.type.energy_consumption') %>
 
 <% if sensor %>
 
     <section class="chart-container">
 
-      <h2><%= sensor.sensor_type_unit.sensor_type.name %></h2>
+      <h2><%= t('sensor.type.energy_consumption') %></h2>
 
       <div id="chart<%= sensor.id %>" class="dashboard-chart-div epoch"></div>
     </section>
@@ -16,13 +15,13 @@
     <% end %>
 <% end %>
 
-<% sensor = get_aggregate_sensor('Energy Production') %>
+<% sensor = get_aggregate_sensor('sensor.type.energy_production') %>
 
 <% if sensor %>
 
     <section class="chart-container">
 
-      <h2><%= sensor.sensor_type_unit.sensor_type.name %></h2>
+      <h2><%= t('sensor.type.energy_production') %></h2>
 
       <div id="chart<%= sensor.id %>" class="dashboard-chart-div epoch"></div>
     </section>
