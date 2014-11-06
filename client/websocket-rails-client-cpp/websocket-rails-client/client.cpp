@@ -6,12 +6,13 @@ int main(int argc, const char* argv[]) {
 
     if (argc != 4) {
         std::cout << "Usage:" << std::endl;
-        std::cout << " ./client <sensor_uuid> <timestamp> <value>" << std::endl;
+        std::cout << " ./client <url> <sensor_uuid> <timestamp> <value>" << std::endl;
         return -1;
     }
 
-
-    msgwebsocket dispatcher("wss://dev4-playground.mysmartgrid.de/websocket");
+		std::string url("wss://dev4-playground.mysmartgrid.de/websocket");
+		websocket::msgwebsocket dispatcher(argv[1]);
+		
 
     // main loop
 		do {
@@ -23,13 +24,11 @@ int main(int argc, const char* argv[]) {
 			time(&timestamp);
 			
 			std::ostringstream os;
-			os << "{\"sensor_uuid\": \"" << argv[1] << "\", \"timestamp\": " << timestamp << ", \"value\": " << value << "}";
+			os << "{\"sensor_uuid\": \"" << argv[2] << "\", \"timestamp\": " << timestamp << ", \"value\": " << value << "}";
 
 			try {
-				dispatcher.send_measurement(os.str());
-      //jsonxx::Object measurement;
-			//measurement.parse(os.str());
-			//		Event post = dispatcher.trigger("measurements.post", measurement, boost::bind(post_success, _1), boost::bind(post_failure, _1));
+				dispatcher.post_measurement(argv[2], value);
+				//dispatcher.post_measurement(os.str());
 
 				usleep(1000000);
 			} catch( std::exception &e) {
@@ -39,5 +38,9 @@ int main(int argc, const char* argv[]) {
 				
 		} while(1);
 		
-//    dispatcher.disconnect();
+		//char c;
+		//std::cin >> c;
+		//dispatcher.disconnect();
+		//std::cin >> c;
+		std::cout<<"=========================== END ===============\n";
 }

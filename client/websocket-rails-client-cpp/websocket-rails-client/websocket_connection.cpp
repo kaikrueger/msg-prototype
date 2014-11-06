@@ -182,8 +182,8 @@ void WebsocketConnection::messageHandler(websocketpp::connection_hdl hdl, messag
   jsonxx::Array event_data;
   event_data.parse(tmp);
 #if defined(USE_DEBUG) && USE_DEBUG
-	std::cout<<"messageHandler:::" << tmp << std::endl;
-	std::cout<<"messageHandler:::" << event_data.size()<< std::endl;
+	//std::cout<<"messageHandler:::" << tmp << std::endl;
+	//std::cout<<"messageHandler:::" << event_data.size()<< std::endl;
 #endif
   for(int i = 0, len = event_data.size(); i < len; i++) {
     event_names += event_data.get<jsonxx::Array>(i).get<jsonxx::String>(0) + " ";
@@ -215,7 +215,7 @@ void WebsocketConnection::sendEvent(Event event) {
   }
   websocketpp::lib::error_code ec;
 #if defined(USE_DEBUG) && USE_DEBUG
-	std::cout<<"SendEnvent:" << event.serialize()<< std::endl;
+	//std::cout<<"SendEnvent:" << event.serialize()<< std::endl;
 #endif	
   this->ws_client.send(this->ws_hdl, event.serialize(), websocketpp::frame::opcode::text, ec);
   if(ec) {

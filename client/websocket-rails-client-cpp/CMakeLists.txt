@@ -19,11 +19,14 @@ set(VERSION_DATE "2014-10-01")
 # path here, subsequent checks will resolve everything else
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/modules")
 
+OPTION(USE_DEBUG
+  "Build the project in debug-mode"
+  NO)
+
 #include ( CompilerFlags )
 find_package(OpenSSL)
 #find_package(GnuTLS)
 
-set(USE_DEBUG 1)
 configure_file(websocket-rails-client/config.h.in ${CMAKE_BINARY_DIR}/websocket-rails-client/config.h)
 
 set (WEBSOCKETPP_PLATFORM_LIBS pthread rt)

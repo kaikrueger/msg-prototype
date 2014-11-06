@@ -7,6 +7,12 @@
 #include <websocket-rails-client/msgwebsocket.hpp>
 
 
+void demo_measurements(jsonxx::Object data) 
+{
+	std::cout << "Function demo_measurement called" << std::endl;
+	std::cout << data.json() << std::endl;
+}
+
 int main(int argc, const char* argv[]) {
 
 	if (argc < 3) {
@@ -22,6 +28,7 @@ int main(int argc, const char* argv[]) {
 		std::cout << "subscribe to "<< argv[i] << std::endl;
 		dispatcher.subscribe(argv[i]);
 	}
+	dispatcher.bind_channel(argv[2], "create", boost::bind(&demo_measurements, _1));
 	
 	time_t start = 1414052908;
 	time_t end   = 1414056508;
