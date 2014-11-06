@@ -16,8 +16,8 @@ class MeasurementsController < WebsocketRails::BaseController
 
     sensor = Sensor.find_by(uuid: message[:sensor_uuid])
 
-    measurements = sensor.get_measurements!(message[:from], message[:to])
-    sensor.trigger_load_event! measurements
+    measurements = sensor.get_measurements(message[:from], message[:to])
+    sensor.trigger_load_event measurements
 
     send_message :load_success, 'load_success', :namespace => :measurements
   end
@@ -28,7 +28,7 @@ class MeasurementsController < WebsocketRails::BaseController
     sensor.add_measurement! message[:timestamp], message[:value]
 
     measurement = {sensor_uuid: sensor.uuid, timestamp: message[:timestamp], value: message[:value]}
-    sensor.trigger_create_event! measurement
+    sensor.trigger_create_event measurement
 
     send_message :post_success, 'post_success', :namespace => :measurements
   end

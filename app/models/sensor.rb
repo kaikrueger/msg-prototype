@@ -13,49 +13,55 @@ class Sensor < ActiveRecord::Base
 
   def add_measurement!(timestamp, value)
 
-    measurement_key = self.redis_measurement_key(timestamp)
+    measurement_key = redis_measurement_key(timestamp)
 
-    $redis.multi do
-      $redis.set(measurement_key, value)
-      $redis.sadd(redis_measurements_key, measurement_key)
-      self.add_dirty_timestamp!(timestamp)
+    redis = get_redis_node(device.user_id)
+    redis.multi do
+      redis.set(measurement_key, value)
+      redis.sadd(redis_measurements_key, measurement_key)
+      add_dirty_timestamp!(timestamp)
     end
   end
 
-  def get_measurement!(timestamp)
-    measurement_key = self.redis_measurement_key(timestamp)
-    value = $redis.get measurement_key
+  def get_measurement(timestamp)
+    measurement_key = redis_measurement_key(timestamp)
+
+    redis = get_redis_node(device.user_id)
+    value = redis.get measurement_key
     value.to_f
   end
 
   def remove_measurement!(timestamp)
 
-    measurement_key = self.redis_measurement_key(timestamp)
+    measurement_key = redis_measurement_key(timestamp)
 
-    $redis.multi do
-      $redis.del(measurement_key)
-      $redis.srem(redis_measurements_key, measurement_key)
+    redis = get_redis_node(device.user_id)
+    redis.multi do
+      redis.del(measurement_key)
+      redis.srem(redis_measurements_key, measurement_key)
       self.add_dirty_timestamp!(timestamp)
     end
   end
 
-  def get_all_measurements!
+  def get_all_measurements
 
     measurements = {}
 
-    $redis.smembers(redis_measurements_key).each { |key|
+    redis = get_redis_node(device.user_id)
+    redis.smembers(redis_measurements_key).each { |key|
       timestamp = key.split(':').last
-      measurements[timestamp] = $redis.get key
+      measurements[timestamp] = redis.get key
     }
     measurements
   end
 
-  def get_measurements!(from, to)
+  def get_measurements(from, to)
 
     measurements = {}
+    redis = get_redis_node(device.user_id)
 
     (from..to).each { |timestamp|
-      value = $redis.get redis_measurement_key(timestamp)
+      value = redis.get redis_measurement_key(timestamp)
       if value
         measurements[timestamp] = value.to_f
       end
@@ -63,21 +69,22 @@ class Sensor < ActiveRecord::Base
     measurements
   end
 
-  def trigger_load_event!(measurements)
+  def trigger_load_event(measurements)
     WebsocketRails[channel_key].trigger('load', measurements)
   end
 
-  def trigger_create_event!(measurement)
+  def trigger_create_event(measurement)
     WebsocketRails[channel_key].trigger('create', measurement)
   end
 
   def channel_key
-    "sensor:#{self.uuid}"
+    "sensor:#{uuid}"
   end
 
-  def get_dirty_timestamps!
+  def get_dirty_timestamps
 
-    timestamps = $redis.smembers self.redis_dirty_timestamps_key
+    redis = get_redis_node(device.user_id)
+    timestamps = redis.smembers redis_dirty_timestamps_key
     unless timestamps
       timestamps = {}
     end
@@ -85,22 +92,24 @@ class Sensor < ActiveRecord::Base
   end
 
   def add_dirty_timestamp!(timestamp)
-    $redis.sadd(self.redis_dirty_timestamps_key, timestamp)
+    redis = get_redis_node(device.user_id)
+    redis.sadd(redis_dirty_timestamps_key, timestamp)
   end
 
   def clear_dirty_timestamps!
-    $redis.del self.redis_dirty_timestamps_key
+    redis = get_redis_node(device.user_id)
+    redis.del redis_dirty_timestamps_key
   end
 
   def redis_measurements_key
-    "#{self.channel_key}:measurements"
+    "#{channel_key}:measurements"
   end
 
   def redis_measurement_key(timestamp)
-    "#{self.redis_measurements_key}:#{timestamp}"
+    "#{redis_measurements_key}:#{timestamp}"
   end
 
   def redis_dirty_timestamps_key
-    "sensor:#{self.device.user_id}:#{self.sensor_type_unit.sensor_type_id}:dirty:timestamps"
+    "sensor:#{device.user_id}:#{sensor_type_unit.sensor_type_id}:dirty:timestamps"
   end
 end
