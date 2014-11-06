@@ -55,7 +55,7 @@ describe Sensor do
 
   describe 'get all measurements' do
     before {
-      @measurements = @sensor.get_all_measurements!
+      @measurements = @sensor.get_all_measurements
     }
     subject { @measurements.size }
     it { should eq 6 }
@@ -63,7 +63,7 @@ describe Sensor do
 
   describe 'get existent measurement' do
     before {
-      @value = @sensor.get_measurement! 1313278102
+      @value = @sensor.get_measurement 1313278102
     }
     subject { @value }
     it { should eq 200 }
@@ -71,7 +71,7 @@ describe Sensor do
 
   describe 'get non existent measurement' do
     before {
-      @value = @sensor.get_measurement! 999999
+      @value = @sensor.get_measurement 999999
     }
     subject { @value }
     it { should eq 0 }
@@ -79,7 +79,7 @@ describe Sensor do
 
   describe 'get existent measurements' do
     before {
-      @measurements = @sensor.get_measurements! 1313278102, 1313278104
+      @measurements = @sensor.get_measurements 1313278102, 1313278104
     }
     subject { @measurements.size }
     it { should eq 3 }
@@ -87,7 +87,7 @@ describe Sensor do
 
   describe 'get non-existent measurements' do
     before {
-      @measurements = @sensor.get_measurements! 1113278102, 1113278104
+      @measurements = @sensor.get_measurements 1113278102, 1113278104
     }
     subject { @measurements.size }
     it { should eq 0 }
@@ -95,7 +95,7 @@ describe Sensor do
 
   describe 'get dirty timestamps' do
     before {
-      @timestamps = @sensor.get_dirty_timestamps!
+      @timestamps = @sensor.get_dirty_timestamps
     }
     subject { @timestamps.size }
     it { should eq 6 }
@@ -104,7 +104,7 @@ describe Sensor do
   describe 'clear dirty timestamps' do
     before {
       @sensor.clear_dirty_timestamps!
-      @timestamps = @sensor.get_dirty_timestamps!
+      @timestamps = @sensor.get_dirty_timestamps
     }
     subject { @timestamps.size }
     it { should eq 0 }

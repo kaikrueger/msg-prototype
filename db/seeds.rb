@@ -14,49 +14,49 @@ sensor_type1 = SensorType.create(name: 'sensor.type.energy_consumption')
 sensor_type2 = SensorType.create(name: 'sensor.type.energy_production')
 sensor_type3 = SensorType.create(name: 'sensor.type.temperature')
 
-sensor_type_unit1 = SensorTypeUnit.create(sensor_type_id: sensor_type1.id, unit_id: unit1.id)
-sensor_type_unit2 = SensorTypeUnit.create(sensor_type_id: sensor_type2.id, unit_id: unit1.id)
-sensor_type_unit3 = SensorTypeUnit.create(sensor_type_id: sensor_type3.id, unit_id: unit2.id)
+sensor_type_unit1 = SensorTypeUnit.create(sensor_type: sensor_type1, sensor_type_id: sensor_type1.id, unit_id: unit1.id)
+sensor_type_unit2 = SensorTypeUnit.create(sensor_type: sensor_type2, sensor_type_id: sensor_type2.id, unit_id: unit1.id)
+sensor_type_unit3 = SensorTypeUnit.create(sensor_type: sensor_type3, sensor_type_id: sensor_type3.id, unit_id: unit2.id)
 
 User.create(name: 'Administrator', email: 'team@mysmartgrid.de', password: '12strom', password_confirmation: '12strom', admin: true)
 user1 = User.create(name: 'Demo User', email: 'user@mysmartgrid.de', password: '12strom', password_confirmation: '12strom', admin: false)
 user2 = User.create(name: 'Demo Benutzer', email: 'benutzer@mysmartgrid.de', password: '12strom', password_confirmation: '12strom', admin: false)
 
-device1 = Device.create(uuid: 'd1d1d1d1d1d1d1d1d1d1d1d1d1d1d1d1', name: 'Home Device', user_id: user1.id, device_type_id: device_type1.id)
-device2 = Device.create(uuid: 'd2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2', name: 'Farm Device', user_id: user1.id, device_type_id: device_type2.id)
-device3 = Device.create(uuid: 'd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3', name: 'Office Device', user_id: user1.id, device_type_id: device_type2.id)
-device4 = Device.create(uuid: 'd4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4', name: 'All Devices', user_id: user1.id, device_type_id: device_type3.id)
+device1 = Device.create(uuid: 'd1d1d1d1d1d1d1d1d1d1d1d1d1d1d1d1', name: 'Home Device', user: user1, user_id: user1.id, device_type_id: device_type1.id)
+device2 = Device.create(uuid: 'd2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2', name: 'Farm Device', user: user1, user_id: user1.id, device_type_id: device_type2.id)
+device3 = Device.create(uuid: 'd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3', name: 'Office Device', user: user1, user_id: user1.id, device_type_id: device_type2.id)
+device4 = Device.create(uuid: 'd4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4', name: 'All Devices', user: user1, user_id: user1.id, device_type_id: device_type3.id)
 
-device5 = Device.create(uuid: 'd1d1d1d1d1d1d1d1d1d1d1d1d1d1d1d1', name: 'Haus Gerät', user_id: user2.id, device_type_id: device_type1.id)
-device6 = Device.create(uuid: 'd2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2', name: 'Bauernhof Gerät', user_id: user2.id, device_type_id: device_type2.id)
-device7 = Device.create(uuid: 'd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3', name: 'Büro Gerät', user_id: user2.id, device_type_id: device_type2.id)
-device8 = Device.create(uuid: 'd4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4', name: 'Alle Geräte', user_id: user2.id, device_type_id: device_type3.id)
+device5 = Device.create(uuid: 'd1d1d1d1d1d1d1d1d1d1d1d1d1d1d1d1', name: 'Haus Gerät', user: user2, user_id: user2.id, device_type_id: device_type1.id)
+device6 = Device.create(uuid: 'd2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2', name: 'Bauernhof Gerät', user: user2, user_id: user2.id, device_type_id: device_type2.id)
+device7 = Device.create(uuid: 'd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3', name: 'Büro Gerät', user: user2, user_id: user2.id, device_type_id: device_type2.id)
+device8 = Device.create(uuid: 'd4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4', name: 'Alle Geräte', user: user2, user_id: user2.id, device_type_id: device_type3.id)
 
-sensor1 = Sensor.create(uuid: 'd1d1d1d1d1d1d1d1s1s1s1s1s1s1s1s1', sensor_type_unit_id: sensor_type_unit1.id, name: 'First Floor', device_id: device1.id, min_value: 0, max_value: 1000)
-sensor2 = Sensor.create(uuid: 'd1d1d1d1d1d1d1d1s2s2s2s2s2s2s2s2', sensor_type_unit_id: sensor_type_unit1.id, name: 'Second Floor', device_id: device1.id, min_value: 0, max_value: 1000)
-sensor3 = Sensor.create(uuid: 'd2d2d2d2d2d2d2d2s1s1s1s1s1s1s1s1', sensor_type_unit_id: sensor_type_unit2.id, name: 'Roof PV Plant', device_id: device2.id, min_value: 0, max_value: 1000)
-sensor4 = Sensor.create(uuid: 'd2d2d2d2d2d2d2d2s2s2s2s2s2s2s2s2', sensor_type_unit_id: sensor_type_unit2.id, name: 'Backyard PV Plant', device_id: device2.id, min_value: 0, max_value: 1000)
-sensor5 = Sensor.create(uuid: 'd3d3d3d3d3d3d3d3s1s1s1s1s1s1s1s1', sensor_type_unit_id: sensor_type_unit3.id, name: 'Thermostat', device_id: device3.id, min_value: -40, max_value: 40)
-sensor6 = Sensor.create(uuid: 'd3d3d3d3d3d3d3d3s2s2s2s2s2s2s2s2', sensor_type_unit_id: sensor_type_unit1.id, name: 'Equipment', device_id: device3.id, min_value: 0, max_value: 1000)
-
-#Aggregate
-Sensor.create(uuid: 'd4d4d4d4d4d4d4d4s1s1s1s1s1s1s1s1', sensor_type_unit_id: sensor_type_unit1.id, name: 'Total Consumption', device_id: device4.id, min_value: 0, max_value: 10000)
-Sensor.create(uuid: 'd4d4d4d4d4d4d4d4s2s2s2s2s2s2s2s2', sensor_type_unit_id: sensor_type_unit2.id, name: 'Total Production', device_id: device4.id, min_value: 0, max_value: 10000)
-
-
-sensor7 = Sensor.create(uuid: 'd5d5d5d5d5d5d5d5s1s1s1s1s1s1s1s1', sensor_type_unit_id: sensor_type_unit1.id, name: 'Erdgeschoss', device_id: device5.id, min_value: 0, max_value: 1000)
-sensor8 = Sensor.create(uuid: 'd5d5d5d5d5d5d5d5s2s2s2s2s2s2s2s2', sensor_type_unit_id: sensor_type_unit1.id, name: 'Zweite Stock', device_id: device5.id, min_value: 0, max_value: 1000)
-sensor9 = Sensor.create(uuid: 'd6d6d6d6d6d6d6d6s1s1s1s1s1s1s1s1', sensor_type_unit_id: sensor_type_unit2.id, name: 'Dach PV-Anlage', device_id: device6.id, min_value: 0, max_value: 1000)
-sensor10 = Sensor.create(uuid: 'd6d6d6d6d6d6d6d6s2s2s2s2s2s2s2s2', sensor_type_unit_id: sensor_type_unit2.id, name: 'Hinterhof PV-Anlage', device_id: device6.id, min_value: 0, max_value: 1000)
-sensor11 = Sensor.create(uuid: 'd7d7d7d7d7d7d7d7s1s1s1s1s1s1s1s1', sensor_type_unit_id: sensor_type_unit3.id, name: 'Thermostat', device_id: device7.id, min_value: -40, max_value: 40)
-sensor12 = Sensor.create(uuid: 'd7d7d7d7d7d7d7d7s2s2s2s2s2s2s2s2', sensor_type_unit_id: sensor_type_unit1.id, name: 'Ausrüstung', device_id: device7.id, min_value: 0, max_value: 1000)
+sensor1 = Sensor.create(uuid: 'd1d1d1d1d1d1d1d1s1s1s1s1s1s1s1s1', sensor_type_unit: sensor_type_unit1, sensor_type_unit_id: sensor_type_unit1.id, name: 'First Floor', device: device1, device_id: device1.id, min_value: 0, max_value: 1000)
+sensor2 = Sensor.create(uuid: 'd1d1d1d1d1d1d1d1s2s2s2s2s2s2s2s2', sensor_type_unit: sensor_type_unit1, sensor_type_unit_id: sensor_type_unit1.id, name: 'Second Floor', device: device1, device_id: device1.id, min_value: 0, max_value: 1000)
+sensor3 = Sensor.create(uuid: 'd2d2d2d2d2d2d2d2s1s1s1s1s1s1s1s1', sensor_type_unit: sensor_type_unit2, sensor_type_unit_id: sensor_type_unit2.id, name: 'Roof PV Plant', device: device2, device_id: device2.id, min_value: 0, max_value: 1000)
+sensor4 = Sensor.create(uuid: 'd2d2d2d2d2d2d2d2s2s2s2s2s2s2s2s2', sensor_type_unit: sensor_type_unit2, sensor_type_unit_id: sensor_type_unit2.id, name: 'Backyard PV Plant', device: device2, device_id: device2.id, min_value: 0, max_value: 1000)
+sensor5 = Sensor.create(uuid: 'd3d3d3d3d3d3d3d3s1s1s1s1s1s1s1s1', sensor_type_unit: sensor_type_unit3, sensor_type_unit_id: sensor_type_unit3.id, name: 'Thermostat', device: device3, device_id: device3.id, min_value: -40, max_value: 40)
+sensor6 = Sensor.create(uuid: 'd3d3d3d3d3d3d3d3s2s2s2s2s2s2s2s2', sensor_type_unit: sensor_type_unit1, sensor_type_unit_id: sensor_type_unit1.id, name: 'Equipment', device: device3, device_id: device3.id, min_value: 0, max_value: 1000)
 
 #Aggregate
-Sensor.create(uuid: 'd8d8d8d8d8d8d8d8s1s1s1s1s1s1s1s1', sensor_type_unit_id: sensor_type_unit1.id, name: 'Gesamtverbrauch', device_id: device8.id, min_value: 0, max_value: 10000)
-Sensor.create(uuid: 'd8d8d8d8d8d8d8d8s2s2s2s2s2s2s2s2', sensor_type_unit_id: sensor_type_unit2.id, name: 'Gesamterzeugung', device_id: device8.id, min_value: 0, max_value: 10000)
+Sensor.create(uuid: 'd4d4d4d4d4d4d4d4s1s1s1s1s1s1s1s1', sensor_type_unit: sensor_type_unit1, sensor_type_unit_id: sensor_type_unit1.id, name: 'Total Consumption', device: device4, device_id: device4.id, min_value: 0, max_value: 10000)
+Sensor.create(uuid: 'd4d4d4d4d4d4d4d4s2s2s2s2s2s2s2s2', sensor_type_unit: sensor_type_unit2, sensor_type_unit_id: sensor_type_unit2.id, name: 'Total Production', device: device4, device_id: device4.id, min_value: 0, max_value: 10000)
 
 
-$redis.flushall
+sensor7 = Sensor.create(uuid: 'd5d5d5d5d5d5d5d5s1s1s1s1s1s1s1s1', sensor_type_unit: sensor_type_unit1, sensor_type_unit_id: sensor_type_unit1.id, name: 'Erdgeschoss', device: device5, device_id: device5.id, min_value: 0, max_value: 1000)
+sensor8 = Sensor.create(uuid: 'd5d5d5d5d5d5d5d5s2s2s2s2s2s2s2s2', sensor_type_unit: sensor_type_unit1, sensor_type_unit_id: sensor_type_unit1.id, name: 'Zweite Stock', device: device5, device_id: device5.id, min_value: 0, max_value: 1000)
+sensor9 = Sensor.create(uuid: 'd6d6d6d6d6d6d6d6s1s1s1s1s1s1s1s1', sensor_type_unit: sensor_type_unit2, sensor_type_unit_id: sensor_type_unit2.id, name: 'Dach PV-Anlage', device: device6, device_id: device6.id, min_value: 0, max_value: 1000)
+sensor10 = Sensor.create(uuid: 'd6d6d6d6d6d6d6d6s2s2s2s2s2s2s2s2', sensor_type_unit: sensor_type_unit2, sensor_type_unit_id: sensor_type_unit2.id, name: 'Hinterhof PV-Anlage', device: device6, device_id: device6.id, min_value: 0, max_value: 1000)
+sensor11 = Sensor.create(uuid: 'd7d7d7d7d7d7d7d7s1s1s1s1s1s1s1s1', sensor_type_unit: sensor_type_unit3, sensor_type_unit_id: sensor_type_unit3.id, name: 'Thermostat', device: device7, device_id: device7.id, min_value: -40, max_value: 40)
+sensor12 = Sensor.create(uuid: 'd7d7d7d7d7d7d7d7s2s2s2s2s2s2s2s2', sensor_type_unit: sensor_type_unit1, sensor_type_unit_id: sensor_type_unit1.id, name: 'Ausrüstung', device: device7, device_id: device7.id, min_value: 0, max_value: 1000)
+
+#Aggregate
+Sensor.create(uuid: 'd8d8d8d8d8d8d8d8s1s1s1s1s1s1s1s1', sensor_type_unit: sensor_type_unit1, sensor_type_unit_id: sensor_type_unit1.id, name: 'Gesamtverbrauch', device: device8, device_id: device8.id, min_value: 0, max_value: 10000)
+Sensor.create(uuid: 'd8d8d8d8d8d8d8d8s2s2s2s2s2s2s2s2', sensor_type_unit: sensor_type_unit2, sensor_type_unit_id: sensor_type_unit2.id, name: 'Gesamterzeugung', device: device8, device_id: device8.id, min_value: 0, max_value: 10000)
+
+
+clear_all_redis_data
 
 hour = 60 * 60
 to = Time.now.to_i
